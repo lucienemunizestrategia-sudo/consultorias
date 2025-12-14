@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro - Prospera Rio</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ============================================
+       VARIAVEIS CSS - PALETA PROSPERA RIO
+       ============================================ */
+    :root {
+      --azul-principal: #092040;
+      --azul-secundaria: #00B7D7;
+      --amarelo-acento: #ECC203;
+      --cinza-neutro: #EFF1F3;
+      --azul-escuro: #021738;
+      --branco: #FFFFFF;
+      --verde-sucesso: #34A853;
+      --vermelho-erro: #EA4335;
+      
+      --font-titulo: 'Montserrat', sans-serif;
+      --font-corpo: 'Open Sans', sans-serif;
+      
+      --sombra-card: 0 8px 32px rgba(9, 32, 64, 0.15);
+      --sombra-hover: 0 12px 48px rgba(9, 32, 64, 0.25);
+      --transicao: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ============================================
+       RESET E BASE
+       ============================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-corpo);
+      background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-escuro) 100%);
+      min-height: 100vh;
+      color: var(--azul-escuro);
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(0, 183, 215, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(236, 194, 3, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ============================================
+       CONTAINER PRINCIPAL
+       ============================================ */
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* ============================================
+       CABECALHO / LOGO
+       ============================================ */
+    .header {
+      text-align: center;
+      padding: 40px 20px;
+      animation: fadeInDown 0.8s ease-out;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo {
+      max-width: 280px;
+      height: auto;
+      filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+      transition: var(--transicao);
+    }
+
+    .logo:hover {
+      transform: scale(1.02);
+    }
+
+    .location-text {
+      color: var(--amarelo-acento);
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 18px;
+      margin-top: 16px;
+      letter-spacing: 3px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* ============================================
+       CARD DO FORMULARIO
+       ============================================ */
+    .form-card {
+      background: var(--branco);
+      border-radius: 24px;
+      box-shadow: var(--sombra-card);
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .form-header {
+      background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-escuro) 100%);
+      padding: 32px;
+      text-align: center;
+      position: relative;
+    }
+
+    .form-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 183, 215, 0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .form-header h1 {
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 28px;
+      color: var(--branco);
+      margin-bottom: 8px;
+      position: relative;
+    }
+
+    .form-header p {
+      font-family: var(--font-corpo);
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.8);
+      position: relative;
+    }
+
+    .form-body {
+      padding: 40px;
+    }
+
+    /* ============================================
+       SECOES DO FORMULARIO
+       ============================================ */
+    .form-section {
+      margin-bottom: 32px;
+      padding-bottom: 32px;
+      border-bottom: 2px solid var(--cinza-neutro);
+    }
+
+    .form-section:last-of-type {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .section-title {
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--azul-principal);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(180deg, var(--azul-secundaria), var(--amarelo-acento));
+      border-radius: 2px;
+    }
+
+    /* ============================================
+       GRID DE CAMPOS
+       ============================================ */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .form-grid-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-grid-3 {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .form-grid-full {
+      grid-column: 1 / -1;
+    }
+
+    /* ============================================
+       GRUPOS DE CAMPOS
+       ============================================ */
+    .form-group {
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-titulo);
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--azul-escuro);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-group label .required {
+      color: var(--vermelho-erro);
+      margin-left: 2px;
+    }
+
+    .form-group label .hint {
+      font-weight: 400;
+      font-size: 10px;
+      color: #666;
+      text-transform: none;
+      letter-spacing: 0;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* ============================================
+       INPUTS E SELECTS
+       ============================================ */
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      font-family: var(--font-corpo);
+      font-size: 14px;
+      color: var(--azul-escuro);
+      background: var(--cinza-neutro);
+      border: 2px solid transparent;
+      border-radius: 10px;
+      transition: var(--transicao);
+      outline: none;
+    }
+
+    .form-control:hover {
+      background: #e8eaed;
+    }
+
+    .form-control:focus {
+      background: var(--branco);
+      border-color: var(--azul-secundaria);
+      box-shadow: 0 0 0 4px rgba(0, 183, 215, 0.15);
+    }
+
+    .form-control::placeholder {
+      color: #999;
+    }
+
+    .form-control.error {
+      border-color: var(--vermelho-erro);
+      background: #fff5f5;
+    }
+
+    select.form-control {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23092040' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 18px;
+      padding-right: 40px;
+    }
+
+    /* ============================================
+       TIPO DE PESSOA (TOGGLE)
+       ============================================ */
+    .tipo-pessoa-container {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .tipo-pessoa-btn {
+      flex: 1;
+      padding: 16px 24px;
+      font-family: var(--font-titulo);
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--azul-escuro);
+      background: var(--cinza-neutro);
+      border: 2px solid transparent;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transicao);
+      text-align: center;
+    }
+
+    .tipo-pessoa-btn:hover {
+      background: #e8eaed;
+    }
+
+    .tipo-pessoa-btn.active {
+      background: var(--azul-secundaria);
+      color: var(--branco);
+      border-color: var(--azul-secundaria);
+    }
+
+    .tipo-pessoa-btn span {
+      display: block;
+      font-size: 11px;
+      font-weight: 400;
+      margin-top: 4px;
+      opacity: 0.8;
+    }
+
+    /* ============================================
+       CAMPOS CONDICIONAIS
+       ============================================ */
+    .campos-pf,
+    .campos-pj {
+      display: none;
+    }
+
+    .campos-pf.active,
+    .campos-pj.active {
+      display: block;
+    }
+
+    /* ============================================
+       CAMPOS ESPECIAIS
+       ============================================ */
+    .input-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .input-group .form-control-small {
+      width: 70px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+
+    .input-group .form-control-large {
+      flex: 1;
+    }
+
+    /* ============================================
+       MENSAGENS DE ERRO
+       ============================================ */
+    .error-message {
+      font-size: 11px;
+      color: var(--vermelho-erro);
+      margin-top: 4px;
+      display: none;
+    }
+
+    .form-group.has-error .error-message {
+      display: block;
+    }
+
+    /* ============================================
+       BOTAO DE ENVIO
+       ============================================ */
+    .btn-submit {
+      width: 100%;
+      padding: 18px 32px;
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--azul-escuro);
+      background: linear-gradient(135deg, var(--amarelo-acento) 0%, #f5d21e 100%);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transicao);
+      position: relative;
+      overflow: hidden;
+      margin-top: 24px;
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(236, 194, 3, 0.4);
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-submit .spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(2, 23, 56, 0.2);
+      border-top-color: var(--azul-escuro);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto;
+    }
+
+    .btn-submit.loading .btn-text {
+      display: none;
+    }
+
+    .btn-submit.loading .spinner {
+      display: block;
+    }
+
+    /* ============================================
+       MODAL DE SUCESSO
+       ============================================ */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(2, 23, 56, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .modal-content {
+      background: var(--branco);
+      border-radius: 24px;
+      padding: 48px;
+      text-align: center;
+      max-width: 420px;
+      width: 100%;
+      animation: scaleIn 0.4s ease-out;
+    }
+
+    .modal-icon {
+      width: 72px;
+      height: 72px;
+      background: linear-gradient(135deg, var(--verde-sucesso), #45c064);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .modal-icon svg {
+      width: 36px;
+      height: 36px;
+      stroke: white;
+      stroke-width: 3;
+    }
+
+    .modal-title {
+      font-family: var(--font-titulo);
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--azul-principal);
+      margin-bottom: 12px;
+    }
+
+    .modal-message {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    .modal-btn {
+      padding: 14px 32px;
+      font-family: var(--font-titulo);
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--branco);
+      background: var(--azul-secundaria);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: var(--transicao);
+    }
+
+    .modal-btn:hover {
+      background: #00a3c0;
+    }
+
+    /* ============================================
+       RODAPE
+       ============================================ */
+    .footer {
+      text-align: center;
+      padding: 32px 20px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 12px;
+    }
+
+    /* ============================================
+       ANIMACOES
+       ============================================ */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ============================================
+       RESPONSIVO
+       ============================================ */
+    @media (max-width: 768px) {
+      .form-grid-2,
+      .form-grid-3 {
+        grid-template-columns: 1fr;
+      }
+      
+      .tipo-pessoa-container {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 12px;
+      }
+
+      .header {
+        padding: 24px 12px;
+      }
+
+      .logo {
+        max-width: 200px;
+      }
+
+      .location-text {
+        font-size: 14px;
+      }
+
+      .form-header {
+        padding: 24px;
+      }
+
+      .form-header h1 {
+        font-size: 20px;
+      }
+
+      .form-body {
+        padding: 24px 16px;
+      }
+
+      .input-group {
+        flex-direction: column;
+      }
+
+      .input-group .form-control-small {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- CABECALHO / LOGO -->
+    <header class="header">
+      <div class="logo-container">
+        <img 
+          class="logo" 
+          src="https://lh3.googleusercontent.com/d/1x5sNkC9vd7CI78y0xdkWvgoadxPEMcIf=w800" 
+          alt="Prospera Rio - Logomarca"
+        />
+        <div class="location-text">MARE . JACAREZINHO</div>
+      </div>
+    </header>
+
+    <!-- FORMULARIO -->
+    <main class="form-card">
+      <div class="form-header">
+        <h1>Formulario de Cadastro</h1>
+        <p>Preencha os dados para realizar seu cadastro no programa</p>
+      </div>
+
+      <form id="formCadastro" class="form-body">
+        
+        <!-- SECAO: TIPO DE PESSOA -->
+        <section class="form-section">
+          <h2 class="section-title">Tipo de Cadastro</h2>
+          
+          <div class="tipo-pessoa-container">
+            <button type="button" class="tipo-pessoa-btn active" data-tipo="pf" id="btnPF">
+              Pessoa Fisica
+              <span>CPF</span>
+            </button>
+            <button type="button" class="tipo-pessoa-btn" data-tipo="pj" id="btnPJ">
+              Pessoa Juridica
+              <span>CNPJ</span>
+            </button>
+          </div>
+          
+          <input type="hidden" id="tipoPessoa" name="tipoPessoa" value="pf" />
+        </section>
+
+        <!-- SECAO: DATA E HORARIO -->
+        <section class="form-section">
+          <h2 class="section-title">Data e Horario do Atendimento</h2>
+          
+          <div class="form-grid form-grid-3">
+            <!-- Data -->
+            <div class="form-group">
+              <label for="data">
+                Data <span class="required">*</span>
+              </label>
+              <input 
+                type="date" 
+                id="data" 
+                name="data" 
+                class="form-control"
+                required
+              />
+              <span class="error-message">Informe a data</span>
+            </div>
+
+            <!-- Horario Inicio -->
+            <div class="form-group">
+              <label for="horarioInicio">
+                Horario Inicio <span class="required">*</span>
+              </label>
+              <input 
+                type="time" 
+                id="horarioInicio" 
+                name="horarioInicio" 
+                class="form-control"
+                required
+              />
+              <span class="error-message">Informe o horario</span>
+            </div>
+
+            <!-- Horario Fim -->
+            <div class="form-group">
+              <label for="horarioFim">
+                Horario Fim <span class="required">*</span>
+              </label>
+              <input 
+                type="time" 
+                id="horarioFim" 
+                name="horarioFim" 
+                class="form-control"
+                required
+              />
+              <span class="error-message">Informe o horario</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================
+             CAMPOS PESSOA FISICA
+             ============================================ -->
+        <div class="campos-pf active" id="camposPF">
+          
+          <!-- SECAO: DADOS PESSOAIS PF -->
+          <section class="form-section">
+            <h2 class="section-title">Dados Pessoais</h2>
+            
+            <div class="form-grid">
+              <!-- Nome -->
+              <div class="form-group form-grid-full">
+                <label for="nomePF">
+                  Nome Completo <span class="required">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="nomePF" 
+                  name="nomePF" 
+                  class="form-control" 
+                  placeholder="Digite seu nome completo"
+                />
+                <span class="error-message">Informe o nome completo</span>
+              </div>
+
+              <!-- CPF -->
+              <div class="form-group">
+                <label for="cpf">
+                  CPF <span class="required">*</span>
+                  <span class="hint">Somente numeros</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="cpf" 
+                  name="cpf" 
+                  class="form-control" 
+                  placeholder="00000000000"
+                  maxlength="14"
+                />
+                <span class="error-message">CPF invalido</span>
+              </div>
+
+              <!-- Sexo -->
+              <div class="form-group">
+                <label for="sexo">
+                  Sexo <span class="required">*</span>
+                </label>
+                <select id="sexo" name="sexo" class="form-control">
+                  <option value="">Selecione...</option>
+                  <option value="F">F - Feminino</option>
+                  <option value="M">M - Masculino</option>
+                </select>
+                <span class="error-message">Selecione o sexo</span>
+              </div>
+
+              <!-- Data de Nascimento -->
+              <div class="form-group">
+                <label for="nascimentoPF">
+                  Nascimento <span class="required">*</span>
+                </label>
+                <input 
+                  type="date" 
+                  id="nascimentoPF" 
+                  name="nascimentoPF" 
+                  class="form-control"
+                />
+                <span class="error-message">Informe a data de nascimento</span>
+              </div>
+
+              <!-- Ocupacao -->
+              <div class="form-group form-grid-full">
+                <label for="ocupacao">
+                  Ocupacao (ou Negocio Proprio) <span class="required">*</span>
+                </label>
+                <select id="ocupacao" name="ocupacao" class="form-control">
+                  <option value="">Selecione...</option>
+                  <option value="1000 - Nao possui">1000 - Nao possui</option>
+                  <option value="1001 - Negocio informal (sem CNPJ)">1001 - Negocio informal (sem CNPJ)</option>
+                  <option value="1002 - Atividade Rural (sem inscricao estadual, DAP ou Registro Min. Pesca)">1002 - Atividade Rural</option>
+                  <option value="1003 - Ambulante">1003 - Ambulante</option>
+                  <option value="1004 - Artesao">1004 - Artesao</option>
+                  <option value="1005 - Autonomo">1005 - Autonomo</option>
+                </select>
+                <span class="error-message">Selecione a ocupacao</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- ============================================
+             CAMPOS PESSOA JURIDICA
+             ============================================ -->
+        <div class="campos-pj" id="camposPJ">
+          
+          <!-- SECAO: DADOS EMPRESA PJ -->
+          <section class="form-section">
+            <h2 class="section-title">Dados da Empresa</h2>
+            
+            <div class="form-grid">
+              <!-- Razao Social -->
+              <div class="form-group form-grid-full">
+                <label for="razaoSocial">
+                  Razao Social <span class="required">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="razaoSocial" 
+                  name="razaoSocial" 
+                  class="form-control" 
+                  placeholder="Nome da empresa"
+                />
+                <span class="error-message">Informe a razao social</span>
+              </div>
+
+              <!-- CNPJ -->
+              <div class="form-group">
+                <label for="cnpj">
+                  CNPJ <span class="required">*</span>
+                  <span class="hint">Somente numeros</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="cnpj" 
+                  name="cnpj" 
+                  class="form-control" 
+                  placeholder="00000000000000"
+                  maxlength="18"
+                />
+                <span class="error-message">CNPJ invalido</span>
+              </div>
+
+              <!-- Data de Fundacao -->
+              <div class="form-group">
+                <label for="dataFundacao">
+                  Data de Fundacao
+                </label>
+                <input 
+                  type="date" 
+                  id="dataFundacao" 
+                  name="dataFundacao" 
+                  class="form-control"
+                />
+              </div>
+
+              <!-- Classificacao da Empresa -->
+              <div class="form-group">
+                <label for="classificacao">
+                  Classificacao da Empresa <span class="required">*</span>
+                </label>
+                <select id="classificacao" name="classificacao" class="form-control">
+                  <option value="">Selecione...</option>
+                  <option value="MEI - Empreendedor Individual">MEI - Empreendedor Individual</option>
+                  <option value="ME - Micro">ME - Micro</option>
+                  <option value="EPP - Pequena Empresa">EPP - Pequena Empresa</option>
+                </select>
+                <span class="error-message">Selecione a classificacao</span>
+              </div>
+
+              <!-- CNAE -->
+              <div class="form-group">
+                <label for="cnae">
+                  CNAE
+                  <span class="hint">Somente numeros</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="cnae" 
+                  name="cnae" 
+                  class="form-control" 
+                  placeholder="0000000"
+                />
+              </div>
+            </div>
+          </section>
+
+          <!-- SECAO: DADOS DO CONTATO PJ -->
+          <section class="form-section">
+            <h2 class="section-title">Dados do Contato</h2>
+            
+            <div class="form-grid">
+              <!-- Nome do Contato -->
+              <div class="form-group form-grid-full">
+                <label for="nomeContato">
+                  Nome do Contato <span class="required">*</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="nomeContato" 
+                  name="nomeContato" 
+                  class="form-control" 
+                  placeholder="Nome completo do responsavel"
+                />
+                <span class="error-message">Informe o nome do contato</span>
+              </div>
+
+              <!-- CPF do Contato -->
+              <div class="form-group">
+                <label for="cpfContato">
+                  CPF do Contato <span class="required">*</span>
+                  <span class="hint">Somente numeros</span>
+                </label>
+                <input 
+                  type="text" 
+                  id="cpfContato" 
+                  name="cpfContato" 
+                  class="form-control" 
+                  placeholder="00000000000"
+                  maxlength="14"
+                />
+                <span class="error-message">CPF invalido</span>
+              </div>
+
+              <!-- Cargo do Contato -->
+              <div class="form-group">
+                <label for="cargoContato">
+                  Cargo do Contato <span class="required">*</span>
+                </label>
+                <select id="cargoContato" name="cargoContato" class="form-control">
+                  <option value="">Selecione...</option>
+                  <option value="S - Socio">S - Socio</option>
+                  <option value="R - Representante">R - Representante</option>
+                </select>
+                <span class="error-message">Selecione o cargo</span>
+              </div>
+
+              <!-- Nascimento do Contato -->
+              <div class="form-group">
+                <label for="nascimentoContato">
+                  Nascimento
+                </label>
+                <input 
+                  type="date" 
+                  id="nascimentoContato" 
+                  name="nascimentoContato" 
+                  class="form-control"
+                />
+              </div>
+
+              <!-- Sexo do Contato -->
+              <div class="form-group">
+                <label for="sexoContato">
+                  Sexo
+                </label>
+                <select id="sexoContato" name="sexoContato" class="form-control">
+                  <option value="">Selecione...</option>
+                  <option value="F">F - Feminino</option>
+                  <option value="M">M - Masculino</option>
+                </select>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- ============================================
+             CAMPOS COMUNS (ENDERECO)
+             ============================================ -->
+        <section class="form-section">
+          <h2 class="section-title">Endereco</h2>
+          
+          <div class="form-grid">
+            <!-- Tipo de Logradouro -->
+            <div class="form-group">
+              <label for="tipoLogradouro">Tipo de Logradouro</label>
+              <select id="tipoLogradouro" name="tipoLogradouro" class="form-control">
+                <option value="Rua">Rua</option>
+                <option value="Avenida">Avenida</option>
+                <option value="Travessa">Travessa</option>
+                <option value="Beco">Beco</option>
+                <option value="Praca">Praca</option>
+                <option value="Alameda">Alameda</option>
+                <option value="Estrada">Estrada</option>
+              </select>
+            </div>
+
+            <!-- Logradouro -->
+            <div class="form-group">
+              <label for="logradouro">
+                Logradouro <span class="required">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="logradouro" 
+                name="logradouro" 
+                class="form-control" 
+                placeholder="Nome da rua"
+                required
+              />
+              <span class="error-message">Informe o logradouro</span>
+            </div>
+
+            <!-- Numero -->
+            <div class="form-group">
+              <label for="numero">
+                Numero <span class="required">*</span>
+              </label>
+              <input 
+                type="text" 
+                id="numero" 
+                name="numero" 
+                class="form-control" 
+                placeholder="N"
+                required
+              />
+              <span class="error-message">Informe o numero</span>
+            </div>
+
+            <!-- Complemento -->
+            <div class="form-group">
+              <label for="complementoEndereco">Complemento</label>
+              <input 
+                type="text" 
+                id="complementoEndereco" 
+                name="complementoEndereco" 
+                class="form-control" 
+                placeholder="Apto, Bloco, etc."
+              />
+            </div>
+
+            <!-- Bairro -->
+            <div class="form-group">
+              <label for="bairro">
+                Bairro <span class="required">*</span>
+              </label>
+              <select id="bairro" name="bairro" class="form-control" required>
+                <option value="">Selecione...</option>
+                <option value="Jacarezinho">Jacarezinho</option>
+                <option value="Mare">Mare</option>
+                <option value="Outro">Outro</option>
+              </select>
+              <span class="error-message">Selecione o bairro</span>
+            </div>
+
+            <!-- Municipio -->
+            <div class="form-group">
+              <label for="municipio">Municipio</label>
+              <input 
+                type="text" 
+                id="municipio" 
+                name="municipio" 
+                class="form-control" 
+                value="Rio de Janeiro"
+                readonly
+              />
+            </div>
+
+            <!-- UF -->
+            <div class="form-group">
+              <label for="uf">UF</label>
+              <input 
+                type="text" 
+                id="uf" 
+                name="uf" 
+                class="form-control" 
+                value="RJ"
+                readonly
+                style="width: 80px;"
+              />
+            </div>
+
+            <!-- CEP -->
+            <div class="form-group">
+              <label for="cep">
+                CEP
+                <span class="hint">Somente numeros</span>
+              </label>
+              <input 
+                type="text" 
+                id="cep" 
+                name="cep" 
+                class="form-control" 
+                placeholder="00000000"
+                maxlength="9"
+              />
+            </div>
+
+            <!-- Tipo de Endereco -->
+            <div class="form-group">
+              <label for="tipoEndereco">Tipo de Endereco</label>
+              <select id="tipoEndereco" name="tipoEndereco" class="form-control">
+                <option value="P - Pessoal">P - Pessoal</option>
+                <option value="C - Comercial">C - Comercial</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================
+             CAMPOS COMUNS (CONTATO)
+             ============================================ -->
+        <section class="form-section">
+          <h2 class="section-title">Contato</h2>
+          
+          <div class="form-grid">
+            <!-- Telefone -->
+            <div class="form-group">
+              <label for="telefone">
+                Telefone <span class="required">*</span>
+              </label>
+              <div class="input-group">
+                <input 
+                  type="text" 
+                  id="ddd" 
+                  name="ddd" 
+                  class="form-control form-control-small" 
+                  placeholder="21"
+                  maxlength="2"
+                  value="21"
+                  required
+                />
+                <input 
+                  type="text" 
+                  id="telefone" 
+                  name="telefone" 
+                  class="form-control form-control-large" 
+                  placeholder="999999999"
+                  maxlength="10"
+                  required
+                />
+              </div>
+              <span class="error-message">Informe o telefone</span>
+            </div>
+
+            <!-- Complemento Telefone -->
+            <div class="form-group">
+              <label for="complementoTelefone">Complemento</label>
+              <input 
+                type="text" 
+                id="complementoTelefone" 
+                name="complementoTelefone" 
+                class="form-control" 
+                placeholder="Ramal, etc."
+              />
+            </div>
+
+            <!-- Tipo de Telefone -->
+            <div class="form-group">
+              <label for="tipoTelefone">Tipo de Telefone</label>
+              <select id="tipoTelefone" name="tipoTelefone" class="form-control">
+                <option value="M - Movel">M - Movel</option>
+                <option value="R - Residencial">R - Residencial</option>
+                <option value="C - Comercial">C - Comercial</option>
+                <option value="F - Fax">F - Fax</option>
+                <option value="P - Pessoal">P - Pessoal</option>
+              </select>
+            </div>
+
+            <!-- E-mail -->
+            <div class="form-group">
+              <label for="email">
+                E-mail <span class="required">*</span>
+              </label>
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="form-control" 
+                placeholder="seuemail@exemplo.com"
+                required
+              />
+              <span class="error-message">E-mail invalido</span>
+            </div>
+
+            <!-- Tipo de E-mail -->
+            <div class="form-group">
+              <label for="tipoEmail">Tipo de E-mail</label>
+              <select id="tipoEmail" name="tipoEmail" class="form-control">
+                <option value="P - Pessoal">P - Pessoal</option>
+                <option value="C - Comercial">C - Comercial</option>
+              </select>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================
+             EVENTO
+             ============================================ -->
+        <section class="form-section">
+          <h2 class="section-title">Evento / Consultoria</h2>
+          
+          <div class="form-group">
+            <label for="evento">
+              Evento <span class="required">*</span>
+            </label>
+            <select id="evento" name="evento" class="form-control" required>
+              <option value="">Selecione o tipo de consultoria...</option>
+              <option value="Consultoria em Diagnostico Empresarial">Consultoria em Diagnostico Empresarial</option>
+              <option value="Consultoria em Precificacao">Consultoria em Precificacao</option>
+              <option value="Consultoria de Como Fazer o Instagram">Consultoria de Como Fazer o Instagram</option>
+              <option value="Consultoria de Cadastro no TikTok">Consultoria de Cadastro no TikTok</option>
+              <option value="Consultoria de Sistema de Caixa">Consultoria de Sistema de Caixa</option>
+              <option value="Consultoria de Controle de Estoques">Consultoria de Controle de Estoques</option>
+              <option value="Consultoria de Entrega de Relatorios">Consultoria de Entrega de Relatorios</option>
+              <option value="Consultoria de Como Vender Mais">Consultoria de Como Vender Mais</option>
+              <option value="Consultoria de Como Lucrar Mais">Consultoria de Como Lucrar Mais</option>
+              <option value="Consultoria de Instalacao de Cadastro de Lojas na Shopee">Consultoria de Instalacao de Cadastro de Lojas na Shopee</option>
+              <option value="Consultoria de Cadastro no Google Meu Negocio">Consultoria de Cadastro no Google Meu Negocio</option>
+              <option value="Consultoria de Cadastro no Mercado Livre">Consultoria de Cadastro no Mercado Livre</option>
+              <option value="Consultoria de Como Gerir Melhor Seu Negocio">Consultoria de Como Gerir Melhor Seu Negocio</option>
+              <option value="Consultoria de Coloque Seu Negocio nas Redes Sociais">Consultoria de Coloque Seu Negocio nas Redes Sociais</option>
+              <option value="Consultoria de Como Digitalizar Seu Negocio">Consultoria de Como Digitalizar Seu Negocio</option>
+              <option value="Consultoria de Como Vender Mais pelo TikTok">Consultoria de Como Vender Mais pelo TikTok</option>
+              <option value="Consultoria de Como Fidelizar Clientes">Consultoria de Como Fidelizar Clientes</option>
+              <option value="Consultoria de Estudo de Caso da Lacoste">Consultoria de Estudo de Caso da Lacoste</option>
+              <option value="Consultoria em Estrategias de Crescimento">Consultoria em Estrategias de Crescimento</option>
+            </select>
+            <span class="error-message">Selecione o evento</span>
+          </div>
+        </section>
+
+        <!-- BOTAO DE ENVIO -->
+        <button type="submit" class="btn-submit" id="btnSubmit">
+          <span class="btn-text">Enviar Cadastro</span>
+          <span class="spinner"></span>
+        </button>
+      </form>
+    </main>
+
+    <!-- RODAPE -->
+    <footer class="footer">
+      <p>Prospera Rio - SEBRAE</p>
+      <p>Mare . Jacarezinho</p>
+    </footer>
+  </div>
+
+  <!-- MODAL DE SUCESSO -->
+  <div class="modal-overlay" id="modalSucesso">
+    <div class="modal-content">
+      <div class="modal-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h3 class="modal-title">Cadastro Enviado!</h3>
+      <p class="modal-message">
+        Seus dados foram enviados com sucesso.<br>
+        Em breve entraremos em contato.
+      </p>
+      <button class="modal-btn" onclick="fecharModal()">Fechar</button>
+    </div>
+  </div>
+
+  <script>
+    // ============================================
+    // CONFIGURACAO - URL DO WEB APP (APPS SCRIPT)
+    // ============================================
+    // IMPORTANTE: Substitua pela URL do seu Web App apos publicar
+    const WEBAPP_URL = 'SUA_URL_DO_WEBAPP_AQUI';
+
+    // ============================================
+    // ELEMENTOS DO DOM
+    // ============================================
+    const form = document.getElementById('formCadastro');
+    const btnSubmit = document.getElementById('btnSubmit');
+    const modalSucesso = document.getElementById('modalSucesso');
+    const btnPF = document.getElementById('btnPF');
+    const btnPJ = document.getElementById('btnPJ');
+    const camposPF = document.getElementById('camposPF');
+    const camposPJ = document.getElementById('camposPJ');
+    const tipoPessoaInput = document.getElementById('tipoPessoa');
+
+    // ============================================
+    // ALTERNAR TIPO DE PESSOA
+    // ============================================
+    btnPF.addEventListener('click', function() {
+      btnPF.classList.add('active');
+      btnPJ.classList.remove('active');
+      camposPF.classList.add('active');
+      camposPJ.classList.remove('active');
+      tipoPessoaInput.value = 'pf';
+    });
+
+    btnPJ.addEventListener('click', function() {
+      btnPJ.classList.add('active');
+      btnPF.classList.remove('active');
+      camposPJ.classList.add('active');
+      camposPF.classList.remove('active');
+      tipoPessoaInput.value = 'pj';
+    });
+
+    // ============================================
+    // MASCARAS E FORMATACOES
+    // ============================================
+    
+    // Mascara de CPF
+    function mascaraCPF(input) {
+      input.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length > 11) value = value.slice(0, 11);
+        
+        if (value.length > 9) {
+          value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+        } else if (value.length > 6) {
+          value = value.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+        } else if (value.length > 3) {
+          value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+        }
+        
+        e.target.value = value;
+      });
+    }
+
+    mascaraCPF(document.getElementById('cpf'));
+    mascaraCPF(document.getElementById('cpfContato'));
+
+    // Mascara de CNPJ
+    document.getElementById('cnpj').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 14) value = value.slice(0, 14);
+      
+      if (value.length > 12) {
+        value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+      } else if (value.length > 8) {
+        value = value.replace(/(\d{2})(\d{3})(\d{3})(\d{1,4})/, '$1.$2.$3/$4');
+      } else if (value.length > 5) {
+        value = value.replace(/(\d{2})(\d{3})(\d{1,3})/, '$1.$2.$3');
+      } else if (value.length > 2) {
+        value = value.replace(/(\d{2})(\d{1,3})/, '$1.$2');
+      }
+      
+      e.target.value = value;
+    });
+
+    // Mascara de CEP
+    document.getElementById('cep').addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length > 8) value = value.slice(0, 8);
+      
+      if (value.length > 5) {
+        value = value.replace(/(\d{5})(\d{1,3})/, '$1-$2');
+      }
+      
+      e.target.value = value;
+    });
+
+    // Apenas numeros
+    document.getElementById('ddd').addEventListener('input', function(e) {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 2);
+    });
+
+    document.getElementById('telefone').addEventListener('input', function(e) {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 9);
+    });
+
+    document.getElementById('cnae').addEventListener('input', function(e) {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 7);
+    });
+
+    // ============================================
+    // VALIDACOES
+    // ============================================
+    
+    function validarCPF(cpf) {
+      cpf = cpf.replace(/\D/g, '');
+      
+      if (cpf.length !== 11) return false;
+      if (/^(\d)\1{10}$/.test(cpf)) return false;
+      
+      let soma = 0;
+      for (let i = 0; i < 9; i++) {
+        soma += parseInt(cpf.charAt(i)) * (10 - i);
+      }
+      let resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpf.charAt(9))) return false;
+      
+      soma = 0;
+      for (let i = 0; i < 10; i++) {
+        soma += parseInt(cpf.charAt(i)) * (11 - i);
+      }
+      resto = (soma * 10) % 11;
+      if (resto === 10 || resto === 11) resto = 0;
+      if (resto !== parseInt(cpf.charAt(10))) return false;
+      
+      return true;
+    }
+
+    function validarCNPJ(cnpj) {
+      cnpj = cnpj.replace(/\D/g, '');
+      
+      if (cnpj.length !== 14) return false;
+      if (/^(\d)\1{13}$/.test(cnpj)) return false;
+      
+      let tamanho = cnpj.length - 2;
+      let numeros = cnpj.substring(0, tamanho);
+      let digitos = cnpj.substring(tamanho);
+      let soma = 0;
+      let pos = tamanho - 7;
+      
+      for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2) pos = 9;
+      }
+      
+      let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+      if (resultado != digitos.charAt(0)) return false;
+      
+      tamanho = tamanho + 1;
+      numeros = cnpj.substring(0, tamanho);
+      soma = 0;
+      pos = tamanho - 7;
+      
+      for (let i = tamanho; i >= 1; i--) {
+        soma += numeros.charAt(tamanho - i) * pos--;
+        if (pos < 2) pos = 9;
+      }
+      
+      resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
+      if (resultado != digitos.charAt(1)) return false;
+      
+      return true;
+    }
+
+    function validarEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function mostrarErro(campo, mostrar) {
+      const grupo = campo.closest('.form-group');
+      if (grupo) {
+        if (mostrar) {
+          grupo.classList.add('has-error');
+          campo.classList.add('error');
+        } else {
+          grupo.classList.remove('has-error');
+          campo.classList.remove('error');
+        }
+      }
+    }
+
+    function validarFormulario() {
+      let valido = true;
+      const tipoPessoa = tipoPessoaInput.value;
+
+      // Campos comuns
+      const camposComuns = [
+        { id: 'data', validar: (v) => !!v },
+        { id: 'horarioInicio', validar: (v) => !!v },
+        { id: 'horarioFim', validar: (v) => !!v },
+        { id: 'logradouro', validar: (v) => v.trim().length > 0 },
+        { id: 'numero', validar: (v) => v.trim().length > 0 },
+        { id: 'bairro', validar: (v) => !!v },
+        { id: 'ddd', validar: (v) => v.length === 2 },
+        { id: 'telefone', validar: (v) => v.length >= 8 },
+        { id: 'email', validar: validarEmail },
+        { id: 'evento', validar: (v) => !!v }
+      ];
+
+      camposComuns.forEach(campo => {
+        const el = document.getElementById(campo.id);
+        if (!campo.validar(el.value)) {
+          mostrarErro(el, true);
+          valido = false;
+        } else {
+          mostrarErro(el, false);
+        }
+      });
+
+      // Campos PF
+      if (tipoPessoa === 'pf') {
+        const camposPFValidar = [
+          { id: 'nomePF', validar: (v) => v.trim().length > 0 },
+          { id: 'cpf', validar: validarCPF },
+          { id: 'sexo', validar: (v) => !!v },
+          { id: 'nascimentoPF', validar: (v) => !!v },
+          { id: 'ocupacao', validar: (v) => !!v }
+        ];
+
+        camposPFValidar.forEach(campo => {
+          const el = document.getElementById(campo.id);
+          if (!campo.validar(el.value)) {
+            mostrarErro(el, true);
+            valido = false;
+          } else {
+            mostrarErro(el, false);
+          }
+        });
+      }
+
+      // Campos PJ
+      if (tipoPessoa === 'pj') {
+        const camposPJValidar = [
+          { id: 'razaoSocial', validar: (v) => v.trim().length > 0 },
+          { id: 'cnpj', validar: validarCNPJ },
+          { id: 'classificacao', validar: (v) => !!v },
+          { id: 'nomeContato', validar: (v) => v.trim().length > 0 },
+          { id: 'cpfContato', validar: validarCPF },
+          { id: 'cargoContato', validar: (v) => !!v }
+        ];
+
+        camposPJValidar.forEach(campo => {
+          const el = document.getElementById(campo.id);
+          if (!campo.validar(el.value)) {
+            mostrarErro(el, true);
+            valido = false;
+          } else {
+            mostrarErro(el, false);
+          }
+        });
+      }
+
+      return valido;
+    }
+
+    // ============================================
+    // FORMATAR DATA PARA DD/MM/AAAA
+    // ============================================
+    function formatarData(dataISO) {
+      if (!dataISO) return '';
+      const partes = dataISO.split('-');
+      return partes[2] + '/' + partes[1] + '/' + partes[0];
+    }
+
+    // ============================================
+    // ENVIO DO FORMULARIO
+    // ============================================
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      if (!validarFormulario()) {
+        const primeiroErro = document.querySelector('.has-error');
+        if (primeiroErro) {
+          primeiroErro.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      btnSubmit.classList.add('loading');
+      btnSubmit.disabled = true;
+
+      const tipoPessoa = tipoPessoaInput.value;
+
+      // Monta os dados
+      const dados = {
+        tipoPessoa: tipoPessoa,
+        data: formatarData(document.getElementById('data').value),
+        horarioInicio: document.getElementById('horarioInicio').value,
+        horarioFim: document.getElementById('horarioFim').value,
+        tipoLogradouro: document.getElementById('tipoLogradouro').value,
+        logradouro: document.getElementById('logradouro').value.trim(),
+        numero: document.getElementById('numero').value.trim(),
+        complementoEndereco: document.getElementById('complementoEndereco').value.trim(),
+        bairro: document.getElementById('bairro').value,
+        municipio: document.getElementById('municipio').value,
+        uf: document.getElementById('uf').value,
+        cep: document.getElementById('cep').value.replace(/\D/g, ''),
+        tipoEndereco: document.getElementById('tipoEndereco').value,
+        ddd: document.getElementById('ddd').value,
+        telefone: document.getElementById('telefone').value,
+        complementoTelefone: document.getElementById('complementoTelefone').value.trim(),
+        tipoTelefone: document.getElementById('tipoTelefone').value,
+        email: document.getElementById('email').value.toLowerCase().trim(),
+        tipoEmail: document.getElementById('tipoEmail').value,
+        evento: document.getElementById('evento').value
+      };
+
+      // Campos PF
+      if (tipoPessoa === 'pf') {
+        dados.nome = document.getElementById('nomePF').value.trim();
+        dados.cpf = document.getElementById('cpf').value.replace(/\D/g, '');
+        dados.sexo = document.getElementById('sexo').value;
+        dados.nascimento = formatarData(document.getElementById('nascimentoPF').value);
+        dados.ocupacao = document.getElementById('ocupacao').value;
+      }
+
+      // Campos PJ
+      if (tipoPessoa === 'pj') {
+        dados.razaoSocial = document.getElementById('razaoSocial').value.trim();
+        dados.cnpj = document.getElementById('cnpj').value.replace(/\D/g, '');
+        dados.dataFundacao = formatarData(document.getElementById('dataFundacao').value);
+        dados.classificacao = document.getElementById('classificacao').value;
+        dados.cnae = document.getElementById('cnae').value;
+        dados.nomeContato = document.getElementById('nomeContato').value.trim();
+        dados.cpfContato = document.getElementById('cpfContato').value.replace(/\D/g, '');
+        dados.cargoContato = document.getElementById('cargoContato').value;
+        dados.nascimentoContato = formatarData(document.getElementById('nascimentoContato').value);
+        dados.sexoContato = document.getElementById('sexoContato').value;
+      }
+
+      try {
+        await fetch(WEBAPP_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(dados)
+        });
+
+        modalSucesso.classList.add('active');
+        form.reset();
+        document.getElementById('ddd').value = '21';
+        document.getElementById('municipio').value = 'Rio de Janeiro';
+        document.getElementById('uf').value = 'RJ';
+        
+        // Volta para PF
+        btnPF.click();
+
+      } catch (error) {
+        console.error('Erro ao enviar:', error);
+        alert('Erro ao enviar o cadastro. Tente novamente.');
+      } finally {
+        btnSubmit.classList.remove('loading');
+        btnSubmit.disabled = false;
+      }
+    });
+
+    // ============================================
+    // MODAL
+    // ============================================
+    function fecharModal() {
+      modalSucesso.classList.remove('active');
+    }
+
+    modalSucesso.addEventListener('click', function(e) {
+      if (e.target === modalSucesso) {
+        fecharModal();
+      }
+    });
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modalSucesso.classList.contains('active')) {
+        fecharModal();
+      }
+    });
+
+    // ============================================
+    // DEFINE DATA ATUAL COMO PADRAO
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function() {
+      const hoje = new Date().toISOString().split('T')[0];
+      document.getElementById('data').value = hoje;
+    });
+  </script>
+</body>
+</html>
