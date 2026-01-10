@@ -64,7 +64,7 @@
     
     .input-with-btn { display: flex; gap: 10px; }
     .btn-search { background: var(--amarelo-acento); color: var(--azul-principal); border: none; border-radius: 10px; padding: 0 20px; font-weight: 700; cursor: pointer; font-size: 12px; text-transform: uppercase; transition: var(--transicao); min-width: 100px; }
-    .btn-search:hover { background: #d4af02; transform: translateY(-1px); }
+    .btn-search:hover { background: #d4af02; }
 
     .tipo-pessoa-container { display: flex; gap: 16px; margin-bottom: 24px; }
     .tipo-pessoa-btn { flex: 1; padding: 16px; font-family: var(--font-titulo); font-weight: 600; border-radius: 12px; cursor: pointer; border: none; background: var(--cinza-neutro); transition: var(--transicao); }
@@ -93,11 +93,12 @@
 
     <main class="form-card">
       <div class="form-header">
-        <h1>Formulário de Cadastro </h1>
-        <p>Preencha os dados para salvar na planilha</p>
+        <h1>Formulário de Cadastro</h1>
+        <p>Preencha os dados completos para a planilha</p>
       </div>
 
       <form id="formCadastro" class="form-body">
+        <!-- TIPO DE CADASTRO -->
         <section class="form-section">
           <h2 class="section-title">Tipo de Cadastro</h2>
           <div class="tipo-pessoa-container">
@@ -107,6 +108,7 @@
           <input type="hidden" id="tipoPessoa" name="tipoPessoa" value="pf" />
         </section>
 
+        <!-- ATENDIMENTO -->
         <section class="form-section">
           <h2 class="section-title">Atendimento</h2>
           <div class="form-grid">
@@ -125,6 +127,7 @@
           </div>
         </section>
 
+        <!-- PESSOA FISICA -->
         <div class="campos-pf active" id="camposPF">
           <div id="alertaBuscaPF" class="alert-busca"></div>
           <section class="form-section">
@@ -142,7 +145,7 @@
                 <input type="text" id="nomePF" name="nomePF" class="form-control" />
               </div>
               <div class="form-group">
-                <label>Sexo</label>
+                <label>Sexo <span class="required">*</span></label>
                 <select id="sexo" name="sexo" class="form-control">
                   <option value="">Selecione...</option>
                   <option value="F">F - Feminino</option>
@@ -150,11 +153,11 @@
                 </select>
               </div>
               <div class="form-group">
-                <label>Nascimento</label>
+                <label>Nascimento <span class="required">*</span></label>
                 <input type="date" id="nascimentoPF" name="nascimentoPF" class="form-control" />
               </div>
               <div class="form-group form-grid-full">
-                <label>Ocupação</label>
+                <label>Ocupação <span class="required">*</span></label>
                 <select id="ocupacao" name="ocupacao" class="form-control">
                   <option value="">Selecione...</option>
                   <option value="1000 - Nao possui">1000 - Não possui</option>
@@ -176,6 +179,7 @@
           </section>
         </div>
 
+        <!-- PESSOA JURIDICA -->
         <div class="campos-pj" id="camposPJ">
           <div id="alertaBuscaPJ" class="alert-busca"></div>
           <section class="form-section">
@@ -189,30 +193,89 @@
                 </div>
               </div>
               <div class="form-group form-grid-full">
-                <label>Razão Social</label>
+                <label>Razão Social <span class="required">*</span></label>
                 <input type="text" id="razaoSocial" name="razaoSocial" class="form-control" />
               </div>
               <div class="form-group">
-                <label>Fundação</label>
+                <label>Data de Fundação</label>
                 <input type="date" id="dataFundacao" name="dataFundacao" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Classificação</label>
+                <select id="classificacao" name="classificacao" class="form-control">
+                  <option value="MEI">MEI</option>
+                  <option value="ME">ME</option>
+                  <option value="EPP">EPP</option>
+                  <option value="Outros">Outros</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>CNAE</label>
+                <input type="text" id="cnae" name="cnae" class="form-control" placeholder="Somente números" maxlength="7" />
+              </div>
+            </div>
+          </section>
+
+          <section class="form-section">
+            <h2 class="section-title">Dados do Contato/Sócio</h2>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>CPF do Contato</label>
+                <input type="text" id="cpfContato" name="cpfContato" class="form-control" maxlength="14" />
+              </div>
+              <div class="form-group form-grid-full">
+                <label>Nome do Contato</label>
+                <input type="text" id="nomeContato" name="nomeContato" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Cargo</label>
+                <input type="text" id="cargoContato" name="cargoContato" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Nascimento</label>
+                <input type="date" id="nascimentoContato" name="nascimentoContato" class="form-control" />
+              </div>
+              <div class="form-group">
+                <label>Sexo</label>
+                <select id="sexoContato" name="sexoContato" class="form-control">
+                  <option value="">Selecione...</option>
+                  <option value="F">F - Feminino</option>
+                  <option value="M">M - Masculino</option>
+                </select>
               </div>
             </div>
           </section>
         </div>
 
+        <!-- ENDERECO -->
         <section class="form-section">
-          <h2 class="section-title">Endereço e Contato</h2>
+          <h2 class="section-title">Endereço</h2>
           <div class="form-grid">
+            <div class="form-group">
+              <label>Tipo Logradouro</label>
+              <select id="tipoLogradouro" name="tipoLogradouro" class="form-control">
+                <option value="Rua">Rua</option>
+                <option value="Avenida">Avenida</option>
+                <option value="Travessa">Travessa</option>
+                <option value="Beco">Beco</option>
+                <option value="Praca">Praça</option>
+                <option value="Estrada">Estrada</option>
+              </select>
+            </div>
             <div class="form-group form-grid-full">
-              <label>Logradouro</label>
+              <label>Logradouro <span class="required">*</span></label>
               <input type="text" id="logradouro" name="logradouro" class="form-control" />
             </div>
             <div class="form-group">
-              <label>Número</label>
+              <label>Número <span class="required">*</span></label>
               <input type="text" id="numero" name="numero" class="form-control" />
             </div>
             <div class="form-group">
-              <label>Bairro</label>
+              <label>Complemento</label>
+              <input type="text" id="complementoEndereco" name="complementoEndereco" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Bairro <span class="required">*</span></label>
               <select id="bairro" name="bairro" class="form-control">
                 <option value="">Selecione...</option>
                 <option value="Jacarezinho">Jacarezinho</option>
@@ -221,23 +284,35 @@
               </select>
             </div>
             <div class="form-group">
-              <label>Telefone</label>
-              <div style="display: flex; gap: 5px;">
-                <input type="text" id="ddd" name="ddd" class="form-control" style="width: 50px;" value="21" />
-                <input type="text" id="telefone" name="telefone" class="form-control" />
+              <label>CEP</label>
+              <input type="text" id="cep" name="cep" class="form-control" maxlength="9" />
+            </div>
+          </div>
+        </section>
+
+        <!-- CONTATO -->
+        <section class="form-section">
+          <h2 class="section-title">Contato</h2>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Telefone <span class="required">*</span></label>
+              <div style="display: flex; gap: 10px;">
+                <input type="text" id="ddd" name="ddd" class="form-control" style="width: 60px;" value="21" maxlength="2" />
+                <input type="text" id="telefone" name="telefone" class="form-control" placeholder="999999999" maxlength="9" />
               </div>
             </div>
             <div class="form-group">
-              <label>E-mail</label>
+              <label>E-mail <span class="required">*</span></label>
               <input type="email" id="email" name="email" class="form-control" />
             </div>
           </div>
         </section>
 
+        <!-- EVENTO -->
         <section class="form-section">
-          <h2 class="section-title">Evento</h2>
+          <h2 class="section-title">Evento / Consultoria</h2>
           <div class="form-group">
-            <label>Selecione o Evento <span class="required">*</span></label>
+            <label>Evento <span class="required">*</span></label>
             <select name="evento" class="form-control" required>
               <option value="">Selecione...</option>
               <option value="Consultoria em Diagnostico Empresarial">Consultoria em Diagnóstico Empresarial</option>
@@ -310,13 +385,26 @@
             document.getElementById('nomePF').value = d.nome || '';
             document.getElementById('sexo').value = d.sexo || '';
             document.getElementById('nascimentoPF').value = d.nascimento || '';
+            document.getElementById('ocupacao').value = d.ocupacao || '';
+            document.getElementById('bolsaFamilia').value = d.bolsaFamilia || 'Não';
           } else {
             document.getElementById('razaoSocial').value = d.razaoSocial || d.nome || '';
             document.getElementById('dataFundacao').value = d.dataFundacao || '';
+            document.getElementById('classificacao').value = d.classificacao || '';
+            document.getElementById('cnae').value = d.cnae || '';
+            document.getElementById('cpfContato').value = d.cpfContato || '';
+            document.getElementById('nomeContato').value = d.nomeContato || '';
+            document.getElementById('cargoContato').value = d.cargoContato || '';
+            document.getElementById('nascimentoContato').value = d.nascimentoContato || '';
+            document.getElementById('sexoContato').value = d.sexoContato || '';
           }
+          document.getElementById('tipoLogradouro').value = d.tipoLogradouro || 'Rua';
           document.getElementById('logradouro').value = d.logradouro || '';
           document.getElementById('numero').value = d.numero || '';
+          document.getElementById('complementoEndereco').value = d.complementoEndereco || '';
           document.getElementById('bairro').value = d.bairro || '';
+          document.getElementById('cep').value = d.cep || '';
+          document.getElementById('ddd').value = d.ddd || '21';
           document.getElementById('telefone').value = d.telefone || '';
           document.getElementById('email').value = d.email || '';
         } else { 
@@ -341,7 +429,12 @@
 
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
-      if (data.tipoPessoa === 'pf') { data.nome = data.nomePF; data.nascimento = data.nascimentoPF; }
+      
+      // Ajuste de nomes para bater com o Script
+      if (data.tipoPessoa === 'pf') {
+        data.nome = data.nomePF;
+        data.nascimento = data.nascimentoPF;
+      }
 
       const form = document.createElement('form');
       form.method = 'POST'; form.action = WEBAPP_URL; form.style.display = 'none';
