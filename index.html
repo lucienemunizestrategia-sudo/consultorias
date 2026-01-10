@@ -63,8 +63,8 @@
     .form-control:focus { background: var(--branco); border-color: var(--azul-secundaria); box-shadow: 0 0 0 4px rgba(0, 183, 215, 0.15); }
     
     .input-with-btn { display: flex; gap: 10px; }
-    .btn-search { background: var(--azul-secundaria); color: white; border: none; border-radius: 10px; padding: 0 20px; font-weight: 700; cursor: pointer; font-size: 12px; text-transform: uppercase; transition: var(--transicao); }
-    .btn-search:hover { background: var(--azul-principal); }
+    .btn-search { background: var(--amarelo-acento); color: var(--azul-principal); border: none; border-radius: 10px; padding: 0 20px; font-weight: 700; cursor: pointer; font-size: 12px; text-transform: uppercase; transition: var(--transicao); min-width: 100px; }
+    .btn-search:hover { background: #d4af02; transform: translateY(-1px); }
 
     .tipo-pessoa-container { display: flex; gap: 16px; margin-bottom: 24px; }
     .tipo-pessoa-btn { flex: 1; padding: 16px; font-family: var(--font-titulo); font-weight: 600; border-radius: 12px; cursor: pointer; border: none; background: var(--cinza-neutro); transition: var(--transicao); }
@@ -93,7 +93,7 @@
 
     <main class="form-card">
       <div class="form-header">
-        <h1>Formulário de Cadastro</h1>
+        <h1>Formulário de Cadastro v5</h1>
         <p>Preencha os dados para salvar na planilha</p>
       </div>
 
@@ -134,7 +134,7 @@
                 <label>CPF <span class="required">*</span></label>
                 <div class="input-with-btn">
                   <input type="text" id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" maxlength="14" />
-                  <button type="button" class="btn-search" onclick="buscar(document.getElementById('cpf').value, 'pf')">BUSCAR</button>
+                  <button type="button" class="btn-search" id="btnBuscarPF">BUSCAR</button>
                 </div>
               </div>
               <div class="form-group form-grid-full">
@@ -185,7 +185,7 @@
                 <label>CNPJ <span class="required">*</span></label>
                 <div class="input-with-btn">
                   <input type="text" id="cnpj" name="cnpj" class="form-control" placeholder="00.000.000/0000-00" maxlength="18" />
-                  <button type="button" class="btn-search" onclick="buscar(document.getElementById('cnpj').value, 'pj')">BUSCAR</button>
+                  <button type="button" class="btn-search" id="btnBuscarPJ">BUSCAR</button>
                 </div>
               </div>
               <div class="form-group form-grid-full">
@@ -296,7 +296,7 @@
     };
 
     // Busca Automática (JSONP)
-    async function buscar(doc, tipo) {
+    async function realizarBusca(doc, tipo) {
       if(!doc) { alert('Digite um CPF ou CNPJ para buscar'); return; }
       const alerta = document.getElementById(tipo === 'pf' ? 'alertaBuscaPF' : 'alertaBuscaPJ');
       alerta.textContent = 'Buscando...'; alerta.className = 'alert-busca loading'; alerta.style.display = 'flex';
@@ -329,6 +329,9 @@
       s.src = `${WEBAPP_URL}?acao=buscar&documento=${doc.replace(/\D/g,'')}&tipo=${tipo}&callback=${callbackName}`;
       document.body.appendChild(s);
     }
+
+    document.getElementById('btnBuscarPF').onclick = () => realizarBusca(document.getElementById('cpf').value, 'pf');
+    document.getElementById('btnBuscarPJ').onclick = () => realizarBusca(document.getElementById('cnpj').value, 'pj');
 
     // Envio (Iframe Trick para evitar CORS)
     document.getElementById('formCadastro').onsubmit = function(e) {
