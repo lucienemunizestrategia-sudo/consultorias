@@ -11,9 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   
   <style>
-    /* ============================================
-       VARIAVEIS CSS - PALETA PROSPERA RIO
-       ============================================ */
     :root {
       --azul-principal: #092040;
       --azul-secundaria: #00B7D7;
@@ -23,28 +20,13 @@
       --branco: #FFFFFF;
       --verde-sucesso: #34A853;
       --vermelho-erro: #EA4335;
-      
       --font-titulo: 'Montserrat', sans-serif;
       --font-corpo: 'Open Sans', sans-serif;
-      
       --sombra-card: 0 8px 32px rgba(9, 32, 64, 0.15);
-      --sombra-hover: 0 12px 48px rgba(9, 32, 64, 0.25);
       --transicao: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* ============================================
-       RESET E BASE
-       ============================================ */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: var(--font-corpo);
       background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-escuro) 100%);
@@ -52,439 +34,109 @@
       color: var(--azul-escuro);
       line-height: 1.6;
     }
-
     body::before {
-      content: '';
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: 
-        radial-gradient(circle at 20% 80%, rgba(0, 183, 215, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(236, 194, 3, 0.08) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
+      content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background-image: radial-gradient(circle at 20% 80%, rgba(0, 183, 215, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(236, 194, 3, 0.08) 0%, transparent 50%);
+      pointer-events: none; z-index: 0;
     }
+    .container { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 20px; }
+    .header { text-align: center; padding: 40px 20px; }
+    .logo { max-width: 280px; height: auto; filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3)); }
+    .location-text { color: var(--amarelo-acento); font-family: var(--font-titulo); font-weight: 700; font-size: 18px; margin-top: 16px; letter-spacing: 3px; }
+    
+    .form-card { background: var(--branco); border-radius: 24px; box-shadow: var(--sombra-card); overflow: hidden; }
+    .form-header { background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-escuro) 100%); padding: 32px; text-align: center; color: white; }
+    .form-header h1 { font-family: var(--font-titulo); font-size: 28px; margin-bottom: 8px; }
+    .form-body { padding: 40px; }
+    
+    .form-section { margin-bottom: 32px; padding-bottom: 32px; border-bottom: 2px solid var(--cinza-neutro); }
+    .section-title { font-family: var(--font-titulo); font-weight: 700; font-size: 16px; color: var(--azul-principal); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; text-transform: uppercase; }
+    .section-title::before { content: ''; width: 4px; height: 24px; background: linear-gradient(180deg, var(--azul-secundaria), var(--amarelo-acento)); border-radius: 2px; }
+    
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .form-grid-full { grid-column: 1 / -1; }
+    .form-group label { display: block; font-family: var(--font-titulo); font-weight: 600; font-size: 12px; margin-bottom: 8px; text-transform: uppercase; }
+    .required { color: var(--vermelho-erro); }
+    .hint { font-weight: 400; font-size: 10px; color: #666; text-transform: none; display: block; }
+    
+    .form-control { width: 100%; padding: 12px 14px; font-size: 14px; background: var(--cinza-neutro); border: 2px solid transparent; border-radius: 10px; outline: none; transition: var(--transicao); }
+    .form-control:focus { background: var(--branco); border-color: var(--azul-secundaria); box-shadow: 0 0 0 4px rgba(0, 183, 215, 0.15); }
+    
+    .tipo-pessoa-container { display: flex; gap: 16px; margin-bottom: 24px; }
+    .tipo-pessoa-btn { flex: 1; padding: 16px; font-family: var(--font-titulo); font-weight: 600; border-radius: 12px; cursor: pointer; border: none; background: var(--cinza-neutro); transition: var(--transicao); }
+    .tipo-pessoa-btn.active { background: var(--azul-secundaria); color: white; }
+    
+    .campos-pf, .campos-pj { display: none; }
+    .campos-pf.active, .campos-pj.active { display: block; }
+    
+    .alert-busca { padding: 12px; border-radius: 10px; margin-bottom: 20px; font-size: 13px; font-weight: 600; display: none; }
+    .alert-busca.success { background: #e6f4ea; color: #1e7e34; display: flex; }
+    .alert-busca.loading { background: #e8f0fe; color: #1967d2; display: flex; }
+    
+    .btn-submit { width: 100%; padding: 18px; background: var(--azul-secundaria); color: white; border: none; border-radius: 12px; font-family: var(--font-titulo); font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+    .btn-submit:disabled { opacity: 0.7; }
 
-    /* ============================================
-       CONTAINER PRINCIPAL
-       ============================================ */
-    .container {
-      position: relative;
-      z-index: 1;
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    /* ============================================
-       CABECALHO / LOGO
-       ============================================ */
-    .header {
-      text-align: center;
-      padding: 40px 20px;
-      animation: fadeInDown 0.8s ease-out;
-    }
-
-    .logo-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .logo {
-      max-width: 280px;
-      height: auto;
-      filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
-      transition: var(--transicao);
-    }
-
-    .logo:hover {
-      transform: scale(1.02);
-    }
-
-    .location-text {
-      color: var(--amarelo-acento);
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      font-size: 18px;
-      margin-top: 16px;
-      letter-spacing: 3px;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    /* ============================================
-       CARD DO FORMULARIO
-       ============================================ */
-    .form-card {
-      background: var(--branco);
-      border-radius: 24px;
-      box-shadow: var(--sombra-card);
-      overflow: hidden;
-      animation: fadeInUp 0.8s ease-out 0.2s both;
-    }
-
-    .form-header {
-      background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-escuro) 100%);
-      padding: 32px;
-      text-align: center;
-      position: relative;
-    }
-
-    .form-header h1 {
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      font-size: 28px;
-      color: var(--branco);
-      margin-bottom: 8px;
-      position: relative;
-    }
-
-    .form-header p {
-      font-family: var(--font-corpo);
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.8);
-      position: relative;
-    }
-
-    .form-body {
-      padding: 40px;
-    }
-
-    /* ============================================
-       SECOES DO FORMULARIO
-       ============================================ */
-    .form-section {
-      margin-bottom: 32px;
-      padding-bottom: 32px;
-      border-bottom: 2px solid var(--cinza-neutro);
-    }
-
-    .form-section:last-of-type {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .section-title {
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--azul-principal);
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .section-title::before {
-      content: '';
-      width: 4px;
-      height: 24px;
-      background: linear-gradient(180deg, var(--azul-secundaria), var(--amarelo-acento));
-      border-radius: 2px;
-    }
-
-    /* ============================================
-       GRID DE CAMPOS
-       ============================================ */
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-
-    .form-grid-full {
-      grid-column: 1 / -1;
-    }
-
-    /* ============================================
-       GRUPOS DE CAMPOS
-       ============================================ */
-    .form-group {
-      position: relative;
-    }
-
-    .form-group label {
-      display: block;
-      font-family: var(--font-titulo);
-      font-weight: 600;
-      font-size: 12px;
-      color: var(--azul-escuro);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .form-group label .required {
-      color: var(--vermelho-erro);
-      margin-left: 2px;
-    }
-
-    .form-group label .hint {
-      font-weight: 400;
-      font-size: 10px;
-      color: #666;
-      text-transform: none;
-      letter-spacing: 0;
-      display: block;
-      margin-top: 2px;
-    }
-
-    /* ============================================
-       INPUTS E SELECTS
-       ============================================ */
-    .form-control {
-      width: 100%;
-      padding: 12px 14px;
-      font-family: var(--font-corpo);
-      font-size: 14px;
-      color: var(--azul-escuro);
-      background: var(--cinza-neutro);
-      border: 2px solid transparent;
-      border-radius: 10px;
-      transition: var(--transicao);
-      outline: none;
-    }
-
-    .form-control:focus {
-      background: var(--branco);
-      border-color: var(--azul-secundaria);
-      box-shadow: 0 0 0 4px rgba(0, 183, 215, 0.15);
-    }
-
-    .form-control.error {
-      border-color: var(--vermelho-erro);
-    }
-
-    .error-message {
-      color: var(--vermelho-erro);
-      font-size: 11px;
-      margin-top: 4px;
-      display: none;
-    }
-
-    /* ============================================
-       TIPO DE PESSOA (TOGGLE)
-       ============================================ */
-    .tipo-pessoa-container {
-      display: flex;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-
-    .tipo-pessoa-btn {
-      flex: 1;
-      padding: 16px 24px;
-      font-family: var(--font-titulo);
-      font-weight: 600;
-      font-size: 14px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--azul-escuro);
-      background: var(--cinza-neutro);
-      border: 2px solid transparent;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: var(--transicao);
-      text-align: center;
-    }
-
-    .tipo-pessoa-btn.active {
-      background: var(--azul-secundaria);
-      color: var(--branco);
-    }
-
-    /* ============================================
-       CAMPOS CONDICIONAIS
-       ============================================ */
-    .campos-pf, .campos-pj {
-      display: none;
-    }
-
-    .campos-pf.active, .campos-pj.active {
-      display: block;
-    }
-
-    /* ============================================
-       ALERTA DE BUSCA
-       ============================================ */
-    .alert-busca {
-      padding: 12px 16px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      font-size: 13px;
-      font-weight: 600;
-      display: none;
-    }
-
-    .alert-busca.success {
-      background: #e6f4ea;
-      color: #1e7e34;
-      display: flex;
-    }
-
-    .alert-busca.loading {
-      background: #e8f0fe;
-      color: #1967d2;
-      display: flex;
-    }
-
-    /* ============================================
-       BOTAO SUBMIT
-       ============================================ */
-    .form-footer {
-      margin-top: 40px;
-    }
-
-    .btn-submit {
-      width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, var(--azul-secundaria) 0%, #00a3c0 100%);
-      color: var(--branco);
-      border: none;
-      border-radius: 12px;
-      font-family: var(--font-titulo);
-      font-weight: 700;
-      font-size: 16px;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: var(--transicao);
-      box-shadow: 0 4px 15px rgba(0, 183, 215, 0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-    }
-
-    .btn-submit:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(0, 183, 215, 0.4);
-    }
-
-    .btn-submit:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-    }
-
-    /* ============================================
-       MODAL DE SUCESSO
-       ============================================ */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(9, 32, 64, 0.8);
-      backdrop-filter: blur(8px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .modal-content {
-      background: var(--branco);
-      border-radius: 24px;
-      padding: 48px;
-      text-align: center;
-      max-width: 420px;
-      width: 90%;
-    }
-
-    /* ============================================
-       ANIMACOES
-       ============================================ */
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ============================================
-       RESPONSIVO
-       ============================================ */
-    @media (max-width: 768px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-      .tipo-pessoa-container {
-        flex-direction: column;
-      }
-    }
+    .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(9, 32, 64, 0.8); display: none; align-items: center; justify-content: center; z-index: 1000; }
+    .modal-content { background: white; border-radius: 24px; padding: 40px; text-align: center; max-width: 400px; }
   </style>
 </head>
 <body>
   <div class="container">
     <header class="header">
-      <div class="logo-container">
-        <img class="logo" src="https://lh3.googleusercontent.com/d/1x5sNkC9vd7CI78y0xdkWvgoadxPEMcIf=w800" alt="Prospera Rio" />
-        <div class="location-text">MARE . JACAREZINHO</div>
-      </div>
+      <img class="logo" src="https://lh3.googleusercontent.com/d/1x5sNkC9vd7CI78y0xdkWvgoadxPEMcIf=w800" alt="Prospera Rio" />
+      <div class="location-text">MARE . JACAREZINHO</div>
     </header>
 
     <main class="form-card">
       <div class="form-header">
         <h1>Formulário de Cadastro</h1>
-        <p>Preencha os dados para realizar seu cadastro no programa</p>
+        <p>Preencha os dados para salvar na planilha</p>
       </div>
 
       <form id="formCadastro" class="form-body">
-        <!-- TIPO DE CADASTRO -->
         <section class="form-section">
           <h2 class="section-title">Tipo de Cadastro</h2>
           <div class="tipo-pessoa-container">
-            <button type="button" class="tipo-pessoa-btn active" data-tipo="pf" id="btnPF">Pessoa Física <span>CPF</span></button>
-            <button type="button" class="tipo-pessoa-btn" data-tipo="pj" id="btnPJ">Pessoa Jurídica <span>CNPJ</span></button>
+            <button type="button" class="tipo-pessoa-btn active" data-tipo="pf" id="btnPF">Pessoa Física</button>
+            <button type="button" class="tipo-pessoa-btn" data-tipo="pj" id="btnPJ">Pessoa Jurídica</button>
           </div>
           <input type="hidden" id="tipoPessoa" name="tipoPessoa" value="pf" />
         </section>
 
-        <!-- DATA E HORARIO -->
         <section class="form-section">
           <h2 class="section-title">Atendimento</h2>
           <div class="form-grid">
             <div class="form-group">
-              <label for="data">Data <span class="required">*</span></label>
-              <input type="date" id="data" name="data" class="form-control" required />
+              <label>Data <span class="required">*</span></label>
+              <input type="date" name="data" class="form-control" required />
             </div>
             <div class="form-group">
-              <label for="horarioInicio">Início <span class="required">*</span></label>
-              <input type="time" id="horarioInicio" name="horarioInicio" class="form-control" required />
+              <label>Início <span class="required">*</span></label>
+              <input type="time" name="horarioInicio" class="form-control" required />
             </div>
             <div class="form-group">
-              <label for="horarioFim">Fim <span class="required">*</span></label>
-              <input type="time" id="horarioFim" name="horarioFim" class="form-control" required />
+              <label>Fim <span class="required">*</span></label>
+              <input type="time" name="horarioFim" class="form-control" required />
             </div>
           </div>
         </section>
 
-        <!-- CAMPOS PESSOA FISICA -->
         <div class="campos-pf active" id="camposPF">
           <div id="alertaBuscaPF" class="alert-busca"></div>
           <section class="form-section">
             <h2 class="section-title">Dados Pessoais</h2>
             <div class="form-grid">
               <div class="form-group">
-                <label for="cpf">CPF <span class="required">*</span> <span class="hint">Digite e pressione Enter para buscar</span></label>
+                <label>CPF <span class="required">*</span> <span class="hint">Enter para buscar</span></label>
                 <input type="text" id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" maxlength="14" />
               </div>
               <div class="form-group form-grid-full">
-                <label for="nomePF">Nome Completo <span class="required">*</span></label>
+                <label>Nome Completo <span class="required">*</span></label>
                 <input type="text" id="nomePF" name="nomePF" class="form-control" />
               </div>
               <div class="form-group">
-                <label for="sexo">Sexo <span class="required">*</span></label>
+                <label>Sexo</label>
                 <select id="sexo" name="sexo" class="form-control">
                   <option value="">Selecione...</option>
                   <option value="F">F - Feminino</option>
@@ -492,11 +144,11 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="nascimentoPF">Nascimento <span class="required">*</span></label>
+                <label>Nascimento</label>
                 <input type="date" id="nascimentoPF" name="nascimentoPF" class="form-control" />
               </div>
               <div class="form-group form-grid-full">
-                <label for="ocupacao">Ocupação <span class="required">*</span></label>
+                <label>Ocupação</label>
                 <select id="ocupacao" name="ocupacao" class="form-control">
                   <option value="">Selecione...</option>
                   <option value="1000 - Nao possui">1000 - Não possui</option>
@@ -508,7 +160,7 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="bolsaFamilia">Bolsa Família?</label>
+                <label>Bolsa Família?</label>
                 <select id="bolsaFamilia" name="bolsaFamilia" class="form-control">
                   <option value="Não">Não</option>
                   <option value="Sim">Sim</option>
@@ -518,101 +170,41 @@
           </section>
         </div>
 
-        <!-- CAMPOS PESSOA JURIDICA -->
         <div class="campos-pj" id="camposPJ">
           <div id="alertaBuscaPJ" class="alert-busca"></div>
           <section class="form-section">
             <h2 class="section-title">Dados da Empresa</h2>
             <div class="form-grid">
               <div class="form-group">
-                <label for="cnpj">CNPJ <span class="required">*</span> <span class="hint">Digite e pressione Enter para buscar</span></label>
+                <label>CNPJ <span class="required">*</span> <span class="hint">Enter para buscar</span></label>
                 <input type="text" id="cnpj" name="cnpj" class="form-control" placeholder="00.000.000/0000-00" maxlength="18" />
               </div>
               <div class="form-group form-grid-full">
-                <label for="razaoSocial">Razão Social <span class="required">*</span></label>
+                <label>Razão Social</label>
                 <input type="text" id="razaoSocial" name="razaoSocial" class="form-control" />
               </div>
               <div class="form-group">
-                <label for="dataFundacao">Data de Fundação</label>
+                <label>Fundação</label>
                 <input type="date" id="dataFundacao" name="dataFundacao" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="classificacao">Classificação</label>
-                <select id="classificacao" name="classificacao" class="form-control">
-                  <option value="MEI">MEI</option>
-                  <option value="ME">ME</option>
-                  <option value="EPP">EPP</option>
-                  <option value="Outros">Outros</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="cnae">CNAE</label>
-                <input type="text" id="cnae" name="cnae" class="form-control" placeholder="Somente números" maxlength="7" />
-              </div>
-            </div>
-          </section>
-
-          <section class="form-section">
-            <h2 class="section-title">Dados do Contato/Sócio</h2>
-            <div class="form-grid">
-              <div class="form-group">
-                <label for="cpfContato">CPF do Contato</label>
-                <input type="text" id="cpfContato" name="cpfContato" class="form-control" maxlength="14" />
-              </div>
-              <div class="form-group form-grid-full">
-                <label for="nomeContato">Nome do Contato</label>
-                <input type="text" id="nomeContato" name="nomeContato" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="cargoContato">Cargo</label>
-                <input type="text" id="cargoContato" name="cargoContato" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="nascimentoContato">Nascimento</label>
-                <input type="date" id="nascimentoContato" name="nascimentoContato" class="form-control" />
-              </div>
-              <div class="form-group">
-                <label for="sexoContato">Sexo</label>
-                <select id="sexoContato" name="sexoContato" class="form-control">
-                  <option value="">Selecione...</option>
-                  <option value="F">F - Feminino</option>
-                  <option value="M">M - Masculino</option>
-                </select>
               </div>
             </div>
           </section>
         </div>
 
-        <!-- ENDERECO -->
         <section class="form-section">
-          <h2 class="section-title">Endereço</h2>
+          <h2 class="section-title">Endereço e Contato</h2>
           <div class="form-grid">
-            <div class="form-group">
-              <label for="tipoLogradouro">Tipo</label>
-              <select id="tipoLogradouro" name="tipoLogradouro" class="form-control">
-                <option value="Rua">Rua</option>
-                <option value="Avenida">Avenida</option>
-                <option value="Travessa">Travessa</option>
-                <option value="Beco">Beco</option>
-                <option value="Praca">Praça</option>
-                <option value="Estrada">Estrada</option>
-              </select>
-            </div>
             <div class="form-group form-grid-full">
-              <label for="logradouro">Logradouro <span class="required">*</span></label>
-              <input type="text" id="logradouro" name="logradouro" class="form-control" required />
+              <label>Logradouro</label>
+              <input type="text" id="logradouro" name="logradouro" class="form-control" />
             </div>
             <div class="form-group">
-              <label for="numero">Número <span class="required">*</span></label>
-              <input type="text" id="numero" name="numero" class="form-control" required />
+              <label>Número</label>
+              <input type="text" id="numero" name="numero" class="form-control" />
             </div>
             <div class="form-group">
-              <label for="complementoEndereco">Complemento</label>
-              <input type="text" id="complementoEndereco" name="complementoEndereco" class="form-control" />
-            </div>
-            <div class="form-group">
-              <label for="bairro">Bairro <span class="required">*</span></label>
-              <select id="bairro" name="bairro" class="form-control" required>
+              <label>Bairro</label>
+              <select id="bairro" name="bairro" class="form-control">
                 <option value="">Selecione...</option>
                 <option value="Jacarezinho">Jacarezinho</option>
                 <option value="Mare">Maré</option>
@@ -620,219 +212,127 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="cep">CEP</label>
-              <input type="text" id="cep" name="cep" class="form-control" maxlength="9" />
-            </div>
-          </div>
-        </section>
-
-        <!-- CONTATO -->
-        <section class="form-section">
-          <h2 class="section-title">Contato</h2>
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Telefone <span class="required">*</span></label>
-              <div style="display: flex; gap: 10px;">
-                <input type="text" id="ddd" name="ddd" class="form-control" style="width: 60px;" value="21" maxlength="2" />
-                <input type="text" id="telefone" name="telefone" class="form-control" placeholder="999999999" maxlength="9" required />
+              <label>Telefone</label>
+              <div style="display: flex; gap: 5px;">
+                <input type="text" id="ddd" name="ddd" class="form-control" style="width: 50px;" value="21" />
+                <input type="text" id="telefone" name="telefone" class="form-control" />
               </div>
             </div>
             <div class="form-group">
-              <label for="email">E-mail <span class="required">*</span></label>
-              <input type="email" id="email" name="email" class="form-control" required />
+              <label>E-mail</label>
+              <input type="email" id="email" name="email" class="form-control" />
             </div>
           </div>
         </section>
 
-        <!-- EVENTO -->
         <section class="form-section">
-          <h2 class="section-title">Evento / Consultoria</h2>
+          <h2 class="section-title">Evento</h2>
           <div class="form-group">
-            <label for="evento">Evento <span class="required">*</span></label>
-            <select id="evento" name="evento" class="form-control" required>
+            <label>Selecione o Evento <span class="required">*</span></label>
+            <select name="evento" class="form-control" required>
               <option value="">Selecione...</option>
               <option value="Consultoria em Diagnostico Empresarial">Consultoria em Diagnóstico Empresarial</option>
               <option value="Consultoria em Precificacao">Consultoria em Precificação</option>
               <option value="Consultoria de Como Fazer o Instagram">Consultoria de Como Fazer o Instagram</option>
-              <option value="Consultoria de Cadastro no TikTok">Consultoria de Cadastro no TikTok</option>
               <option value="Consultoria de Sistema de Caixa">Consultoria de Sistema de Caixa</option>
-              <option value="Consultoria de Controle de Estoques">Consultoria de Controle de Estoques</option>
-              <option value="Consultoria de Entrega de Relatorios">Consultoria de Entrega de Relatórios</option>
-              <option value="Consultoria de Como Vender Mais">Consultoria de Como Vender Mais</option>
             </select>
           </div>
         </section>
 
-        <div class="form-footer">
-          <button type="submit" id="btnSubmit" class="btn-submit">
-            <span>FINALIZAR CADASTRO</span>
-          </button>
-        </div>
+        <button type="submit" id="btnSubmit" class="btn-submit">Finalizar Cadastro</button>
       </form>
     </main>
-
-    <footer class="footer" style="text-align: center; padding: 32px; color: white; font-size: 12px; opacity: 0.7;">
-      PROSPERA RIO &copy; 2026 - MARE . JACAREZINHO
-    </footer>
   </div>
 
-  <!-- MODAL SUCESSO -->
   <div id="modalSucesso" class="modal-overlay">
     <div class="modal-content">
-      <h2 style="color: var(--azul-principal); margin-bottom: 16px;">Sucesso!</h2>
-      <p style="margin-bottom: 24px;">O cadastro foi realizado e salvo na planilha com sucesso.</p>
-      <button onclick="window.location.reload()" class="btn-submit" style="width: auto; padding: 12px 32px; margin: 0 auto;">NOVO CADASTRO</button>
+      <h2>Sucesso!</h2>
+      <p>Dados salvos na planilha.</p>
+      <button onclick="window.location.reload()" class="btn-submit" style="margin-top: 20px;">Novo Cadastro</button>
     </div>
   </div>
 
   <script>
-    // CONFIGURAÇÃO - COLOQUE A URL DO SEU WEB APP AQUI
     const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwk_UNwCcncFqI6P8TLKO2m68wvujl_DXRnCt4i3n-kdHV_qh7FlOBDQc4mL6qbiYDq/exec';
 
-    // Alternar entre PF e PJ
-    const btnPF = document.getElementById('btnPF');
-    const btnPJ = document.getElementById('btnPJ');
-    const camposPF = document.getElementById('camposPF');
-    const camposPJ = document.getElementById('camposPJ');
-    const tipoPessoaInput = document.getElementById('tipoPessoa');
+    // Alternar PF/PJ
+    document.getElementById('btnPF').onclick = () => {
+      document.getElementById('btnPF').classList.add('active');
+      document.getElementById('btnPJ').classList.remove('active');
+      document.getElementById('camposPF').classList.add('active');
+      document.getElementById('camposPJ').classList.remove('active');
+      document.getElementById('tipoPessoa').value = 'pf';
+    };
+    document.getElementById('btnPJ').onclick = () => {
+      document.getElementById('btnPJ').classList.add('active');
+      document.getElementById('btnPF').classList.remove('active');
+      document.getElementById('camposPJ').classList.add('active');
+      document.getElementById('camposPF').classList.remove('active');
+      document.getElementById('tipoPessoa').value = 'pj';
+    };
 
-    btnPF.addEventListener('click', () => {
-      btnPF.classList.add('active');
-      btnPJ.classList.remove('active');
-      camposPF.classList.add('active');
-      camposPJ.classList.remove('active');
-      tipoPessoaInput.value = 'pf';
-    });
-
-    btnPJ.addEventListener('click', () => {
-      btnPJ.classList.add('active');
-      btnPF.classList.remove('active');
-      camposPJ.classList.add('active');
-      camposPF.classList.remove('active');
-      tipoPessoaInput.value = 'pj';
-    });
-
-    // Mascaras Simples
-    function aplicarMascara(id, pattern, separator) {
-      const el = document.getElementById(id);
-      el.addEventListener('input', (e) => {
-        let val = e.target.value.replace(/\D/g, '');
-        if (id === 'cpf' || id === 'cpfContato') {
-          if (val.length > 11) val = val.slice(0, 11);
-          if (val.length > 9) val = val.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
-          else if (val.length > 6) val = val.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
-          else if (val.length > 3) val = val.replace(/(\d{3})(\d{1,3})/, '$1.$2');
-        } else if (id === 'cnpj') {
-          if (val.length > 14) val = val.slice(0, 14);
-          if (val.length > 12) val = val.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
-        } else if (id === 'cep') {
-          if (val.length > 8) val = val.slice(0, 8);
-          if (val.length > 5) val = val.replace(/(\d{5})(\d{1,3})/, '$1-$2');
-        }
-        e.target.value = val;
-      });
-    }
-
-    aplicarMascara('cpf');
-    aplicarMascara('cpfContato');
-    aplicarMascara('cnpj');
-    aplicarMascara('cep');
-
-    // BUSCA AUTOMÁTICA
-    async function buscarDados(documento, tipo) {
-      const alerta = tipo === 'pf' ? document.getElementById('alertaBuscaPF') : document.getElementById('alertaBuscaPJ');
-      alerta.textContent = 'Buscando cadastro existente...';
-      alerta.className = 'alert-busca loading';
+    // Busca Automática (JSONP)
+    async function buscar(doc, tipo) {
+      const alerta = document.getElementById(tipo === 'pf' ? 'alertaBuscaPF' : 'alertaBuscaPJ');
+      alerta.textContent = 'Buscando...'; alerta.className = 'alert-busca loading'; alerta.style.display = 'flex';
       
-      try {
-        const response = await fetch(`${WEBAPP_URL}?acao=buscar&documento=${documento.replace(/\D/g, '')}&tipo=${tipo}`);
-        const result = await response.json();
-        
-        if (result.success) {
-          alerta.textContent = 'Cadastro encontrado! Campos preenchidos.';
-          alerta.className = 'alert-busca success';
-          
-          const d = result.dados;
+      const callbackName = 'cb_' + Date.now();
+      window[callbackName] = (r) => {
+        if (r.success) {
+          alerta.textContent = 'Encontrado!'; alerta.className = 'alert-busca success';
+          const d = r.dados;
           if (tipo === 'pf') {
-            document.getElementById('nomePF').value = d.nome;
-            document.getElementById('sexo').value = d.sexo;
-            document.getElementById('nascimentoPF').value = d.nascimento;
+            document.getElementById('nomePF').value = d.nome || '';
+            document.getElementById('sexo').value = d.sexo || '';
+            document.getElementById('nascimentoPF').value = d.nascimento || '';
           } else {
-            document.getElementById('razaoSocial').value = d.razaoSocial || d.nome;
-            document.getElementById('dataFundacao').value = d.dataFundacao || d.nascimento;
-            document.getElementById('cpfContato').value = d.cpfContato;
-            document.getElementById('nomeContato').value = d.nomeContato;
+            document.getElementById('razaoSocial').value = d.razaoSocial || d.nome || '';
+            document.getElementById('dataFundacao').value = d.dataFundacao || '';
           }
-          
-          // Campos comuns
-          document.getElementById('tipoLogradouro').value = d.tipoLogradouro;
-          document.getElementById('logradouro').value = d.logradouro;
-          document.getElementById('numero').value = d.numero;
-          document.getElementById('bairro').value = d.bairro;
-          document.getElementById('cep').value = d.cep;
-          document.getElementById('ddd').value = d.ddd;
-          document.getElementById('telefone').value = d.telefone;
-          document.getElementById('email').value = d.email;
-          
-        } else {
-          alerta.style.display = 'none';
-        }
-      } catch (error) {
-        console.error('Erro na busca:', error);
-        alerta.style.display = 'none';
-      }
+          document.getElementById('logradouro').value = d.logradouro || '';
+          document.getElementById('numero').value = d.numero || '';
+          document.getElementById('bairro').value = d.bairro || '';
+          document.getElementById('telefone').value = d.telefone || '';
+          document.getElementById('email').value = d.email || '';
+        } else { alerta.style.display = 'none'; }
+        delete window[callbackName];
+      };
+      const s = document.createElement('script');
+      s.src = `${WEBAPP_URL}?acao=buscar&documento=${doc.replace(/\D/g,'')}&tipo=${tipo}&callback=${callbackName}`;
+      document.body.appendChild(s);
     }
 
-    document.getElementById('cpf').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        buscarDados(e.target.value, 'pf');
-      }
-    });
+    document.getElementById('cpf').onkeypress = (e) => { if(e.key==='Enter'){ e.preventDefault(); buscar(e.target.value, 'pf'); } };
+    document.getElementById('cnpj').onkeypress = (e) => { if(e.key==='Enter'){ e.preventDefault(); buscar(e.target.value, 'pj'); } };
 
-    document.getElementById('cnpj').addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        buscarDados(e.target.value, 'pj');
-      }
-    });
-
-    // ENVIO DO FORMULÁRIO
-    document.getElementById('formCadastro').addEventListener('submit', async (e) => {
+    // Envio (Iframe Trick para evitar CORS)
+    document.getElementById('formCadastro').onsubmit = function(e) {
       e.preventDefault();
       const btn = document.getElementById('btnSubmit');
-      btn.disabled = true;
-      btn.textContent = 'ENVIANDO...';
+      btn.disabled = true; btn.textContent = 'Enviando...';
 
       const formData = new FormData(e.target);
       const data = Object.fromEntries(formData.entries());
-      
-      // Ajuste de nomes para bater com o Script
-      if (data.tipoPessoa === 'pf') {
-        data.nome = data.nomePF;
-        data.nascimento = data.nascimentoPF;
-      }
+      if (data.tipoPessoa === 'pf') { data.nome = data.nomePF; data.nascimento = data.nascimentoPF; }
 
-      try {
-        const response = await fetch(WEBAPP_URL, {
-          method: 'POST',
-          body: JSON.stringify(data)
-        });
-        
-        const result = await response.json();
-        if (result.success) {
-          document.getElementById('modalSucesso').style.display = 'flex';
-        } else {
-          alert('Erro ao salvar: ' + result.message);
-          btn.disabled = false;
-          btn.textContent = 'FINALIZAR CADASTRO';
-        }
-      } catch (error) {
-        alert('Erro na conexão com a planilha.');
-        btn.disabled = false;
-        btn.textContent = 'FINALIZAR CADASTRO';
-      }
-    });
+      const form = document.createElement('form');
+      form.method = 'POST'; form.action = WEBAPP_URL; form.style.display = 'none';
+      const input = document.createElement('input');
+      input.name = 'postData'; input.value = JSON.stringify(data);
+      form.appendChild(input);
+
+      const iframe = document.createElement('iframe');
+      iframe.name = 'h_iframe'; iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+      form.target = 'h_iframe';
+      document.body.appendChild(form);
+      form.submit();
+
+      setTimeout(() => {
+        document.getElementById('modalSucesso').style.display = 'flex';
+        btn.disabled = false; btn.textContent = 'Finalizar Cadastro';
+      }, 2500);
+    };
   </script>
 </body>
 </html>
