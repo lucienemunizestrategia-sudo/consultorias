@@ -80,6 +80,10 @@
     .btn-submit { width: 100%; padding: 18px; background: var(--azul-secundaria); color: white; border: none; border-radius: 12px; font-family: var(--font-titulo); font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
     .btn-submit:disabled { opacity: 0.7; }
 
+    .btn-ferramentas { display: flex; gap: 12px; margin-bottom: 24px; }
+    .btn-ferramenta { flex: 1; padding: 16px; background: var(--amarelo-acento); color: var(--azul-principal); border: none; border-radius: 12px; font-family: var(--font-titulo); font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 13px; transition: var(--transicao); text-decoration: none; text-align: center; }
+    .btn-ferramenta:hover { background: #d4af02; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(236, 194, 3, 0.3); }
+
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(9, 32, 64, 0.8); display: none; align-items: center; justify-content: center; z-index: 1000; }
     .modal-content { background: white; border-radius: 24px; padding: 40px; text-align: center; max-width: 400px; }
   </style>
@@ -98,6 +102,14 @@
       </div>
 
       <form id="formCadastro" class="form-body">
+        <!-- FERRAMENTAS -->
+        <section class="form-section">
+          <div class="btn-ferramentas">
+            <a href="https://lucienemunizestrategia-sudo.github.io/diagnosticoempresarial/" target="_blank" class="btn-ferramenta">Diagnóstico Empresarial</a>
+            <a href="https://lucienemunizestrategia-sudo.github.io/sistemadegestaodemetas/" target="_blank" class="btn-ferramenta">Sistema de Gestão de Metas</a>
+          </div>
+        </section>
+
         <!-- TIPO DE CADASTRO -->
         <section class="form-section">
           <h2 class="section-title">Tipo de Cadastro</h2>
@@ -188,21 +200,21 @@
               <div class="form-group">
                 <label>CNPJ <span class="required">*</span></label>
                 <div class="input-with-btn">
-                  <input type="text" id="cnpj" name="cnpj" class="form-control" placeholder="00.000.000/0000-00" maxlength="18" />
+                  <input type="text" id="cnpj" name="cnpj" class="form-control" placeholder="00.000.000/0000-00" maxlength="18" required />
                   <button type="button" class="btn-search" id="btnBuscarPJ">BUSCAR</button>
                 </div>
               </div>
               <div class="form-group form-grid-full">
                 <label>Razão Social <span class="required">*</span></label>
-                <input type="text" id="razaoSocial" name="razaoSocial" class="form-control" />
+                <input type="text" id="razaoSocial" name="razaoSocial" class="form-control" required />
               </div>
               <div class="form-group">
-                <label>Data de Fundação</label>
-                <input type="date" id="dataFundacao" name="dataFundacao" class="form-control" />
+                <label>Data de Fundação <span class="required">*</span></label>
+                <input type="date" id="dataFundacao" name="dataFundacao" class="form-control" required />
               </div>
               <div class="form-group">
-                <label>Classificação</label>
-                <select id="classificacao" name="classificacao" class="form-control">
+                <label>Classificação <span class="required">*</span></label>
+                <select id="classificacao" name="classificacao" class="form-control" required>
                   <option value="MEI">MEI</option>
                   <option value="ME">ME</option>
                   <option value="EPP">EPP</option>
@@ -210,8 +222,8 @@
                 </select>
               </div>
               <div class="form-group">
-                <label>CNAE</label>
-                <input type="text" id="cnae" name="cnae" class="form-control" placeholder="Somente números" maxlength="7" />
+                <label>CNAE <span class="required">*</span></label>
+                <input type="text" id="cnae" name="cnae" class="form-control" placeholder="Somente números" maxlength="7" required />
               </div>
             </div>
           </section>
@@ -220,24 +232,24 @@
             <h2 class="section-title">Dados do Contato/Sócio</h2>
             <div class="form-grid">
               <div class="form-group">
-                <label>CPF do Contato</label>
-                <input type="text" id="cpfContato" name="cpfContato" class="form-control" maxlength="14" />
+                <label>CPF do Contato <span class="required">*</span></label>
+                <input type="text" id="cpfContato" name="cpfContato" class="form-control" maxlength="14" required />
               </div>
               <div class="form-group form-grid-full">
-                <label>Nome do Contato</label>
-                <input type="text" id="nomeContato" name="nomeContato" class="form-control" />
+                <label>Nome do Contato <span class="required">*</span></label>
+                <input type="text" id="nomeContato" name="nomeContato" class="form-control" required />
               </div>
               <div class="form-group">
-                <label>Cargo</label>
-                <input type="text" id="cargoContato" name="cargoContato" class="form-control" />
+                <label>Cargo <span class="required">*</span></label>
+                <input type="text" id="cargoContato" name="cargoContato" class="form-control" required />
               </div>
               <div class="form-group">
-                <label>Nascimento</label>
-                <input type="date" id="nascimentoContato" name="nascimentoContato" class="form-control" />
+                <label>Nascimento <span class="required">*</span></label>
+                <input type="date" id="nascimentoContato" name="nascimentoContato" class="form-control" required />
               </div>
               <div class="form-group">
-                <label>Sexo</label>
-                <select id="sexoContato" name="sexoContato" class="form-control">
+                <label>Sexo <span class="required">*</span></label>
+                <select id="sexoContato" name="sexoContato" class="form-control" required>
                   <option value="">Selecione...</option>
                   <option value="F">F - Feminino</option>
                   <option value="M">M - Masculino</option>
@@ -284,8 +296,8 @@
               </select>
             </div>
             <div class="form-group">
-              <label>CEP</label>
-              <input type="text" id="cep" name="cep" class="form-control" maxlength="9" />
+              <label>CEP <span class="required">*</span></label>
+              <input type="text" id="cep" name="cep" class="form-control" maxlength="9" required />
             </div>
           </div>
         </section>
