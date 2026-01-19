@@ -82,6 +82,9 @@
 
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(9, 32, 64, 0.8); display: none; align-items: center; justify-content: center; z-index: 1000; }
     .modal-content { background: white; border-radius: 24px; padding: 40px; text-align: center; max-width: 400px; }
+    .btn-ferramentas { display: flex; gap: 12px; margin-bottom: 24px; }
+.btn-ferramenta { flex: 1; padding: 16px; background: var(--amarelo-acento); color: var(--azul-principal); border: none; border-radius: 12px; font-family: var(--font-titulo); font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 13px; transition: var(--transicao); text-decoration: none; text-align: center; }
+.btn-ferramenta:hover { background: #d4af02; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(236, 194, 3, 0.3); }
   </style>
 </head>
 <body>
@@ -95,7 +98,14 @@
       <div class="form-header">
         <h1>Formulário de Cadastro</h1>
         <p>Preencha os dados completos para a planilha</p>
-      </div>
+      </div> 
+      <!-- FERRAMENTAS -->
+<section class="form-section">
+  <div class="btn-ferramentas">
+    <a href="https://lucienemunizestrategia-sudo.github.io/diagnosticoempresarial/" target="_blank" class="btn-ferramenta">Diagnóstico Empresarial</a>
+    <a href="https://lucienemunizestrategia-sudo.github.io/sistemadegestaodemetas/" target="_blank" class="btn-ferramenta">Sistema de Gestão de Metas</a>
+  </div>
+</section>
 
       <form id="formCadastro" class="form-body">
         <!-- TIPO DE CADASTRO -->
