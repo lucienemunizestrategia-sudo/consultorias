@@ -80,10 +80,6 @@
     .btn-submit { width: 100%; padding: 18px; background: var(--azul-secundaria); color: white; border: none; border-radius: 12px; font-family: var(--font-titulo); font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
     .btn-submit:disabled { opacity: 0.7; }
 
-    .btn-ferramentas { display: flex; gap: 12px; margin-bottom: 24px; }
-    .btn-ferramenta { flex: 1; padding: 16px; background: var(--amarelo-acento); color: var(--azul-principal); border: none; border-radius: 12px; font-family: var(--font-titulo); font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-size: 13px; transition: var(--transicao); text-decoration: none; text-align: center; }
-    .btn-ferramenta:hover { background: #d4af02; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(236, 194, 3, 0.3); }
-
     .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(9, 32, 64, 0.8); display: none; align-items: center; justify-content: center; z-index: 1000; }
     .modal-content { background: white; border-radius: 24px; padding: 40px; text-align: center; max-width: 400px; }
   </style>
@@ -102,14 +98,6 @@
       </div>
 
       <form id="formCadastro" class="form-body">
-        <!-- FERRAMENTAS -->
-        <section class="form-section">
-          <div class="btn-ferramentas">
-            <a href="https://lucienemunizestrategia-sudo.github.io/diagnosticoempresarial/" target="_blank" class="btn-ferramenta">Diagnóstico Empresarial</a>
-            <a href="https://lucienemunizestrategia-sudo.github.io/sistemadegestaodemetas/" target="_blank" class="btn-ferramenta">Sistema de Gestão de Metas</a>
-          </div>
-        </section>
-
         <!-- TIPO DE CADASTRO -->
         <section class="form-section">
           <h2 class="section-title">Tipo de Cadastro</h2>
@@ -148,17 +136,17 @@
               <div class="form-group">
                 <label>CPF <span class="required">*</span></label>
                 <div class="input-with-btn">
-                  <input type="text" id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" maxlength="14" required />
+                  <input type="text" id="cpf" name="cpf" class="form-control" placeholder="000.000.000-00" maxlength="14" />
                   <button type="button" class="btn-search" id="btnBuscarPF">BUSCAR</button>
                 </div>
               </div>
               <div class="form-group form-grid-full">
                 <label>Nome Completo <span class="required">*</span></label>
-                <input type="text" id="nomePF" name="nomePF" class="form-control" required />
+                <input type="text" id="nomePF" name="nomePF" class="form-control" />
               </div>
               <div class="form-group">
                 <label>Sexo <span class="required">*</span></label>
-                <select id="sexo" name="sexo" class="form-control" required>
+                <select id="sexo" name="sexo" class="form-control">
                   <option value="">Selecione...</option>
                   <option value="F">F - Feminino</option>
                   <option value="M">M - Masculino</option>
@@ -166,11 +154,11 @@
               </div>
               <div class="form-group">
                 <label>Nascimento <span class="required">*</span></label>
-                <input type="date" id="nascimentoPF" name="nascimentoPF" class="form-control" required />
+                <input type="date" id="nascimentoPF" name="nascimentoPF" class="form-control" />
               </div>
               <div class="form-group form-grid-full">
                 <label>Ocupação <span class="required">*</span></label>
-                <select id="ocupacao" name="ocupacao" class="form-control" required>
+                <select id="ocupacao" name="ocupacao" class="form-control">
                   <option value="">Selecione...</option>
                   <option value="1000 - Nao possui">1000 - Não possui</option>
                   <option value="1001 - Negocio informal (sem CNPJ)">1001 - Negócio informal (sem CNPJ)</option>
@@ -209,50 +197,46 @@
                 <input type="text" id="razaoSocial" name="razaoSocial" class="form-control" />
               </div>
               <div class="form-group">
-                <label>Data de Fundação <span class="required">*</span></label>
+                <label>Data de Fundação</label>
                 <input type="date" id="dataFundacao" name="dataFundacao" class="form-control" />
               </div>
               <div class="form-group">
-                <label>Classificação <span class="required">*</span></label>
+                <label>Classificação</label>
                 <select id="classificacao" name="classificacao" class="form-control">
-                  <option value="">Selecione...</option>
-                  <option value="MEI - Empreendedor Individual">MEI - Empreendedor Individual</option>
-                  <option value="ME - Micro">ME - Micro</option>
-                  <option value="EPP - Pequena Empresa">EPP - Pequena Empresa</option>
+                  <option value="MEI">MEI</option>
+                  <option value="ME">ME</option>
+                  <option value="EPP">EPP</option>
+                  <option value="Outros">Outros</option>
                 </select>
               </div>
               <div class="form-group">
-                <label>CNAE <span class="required">*</span></label>
-                <input type="text" id="cnae" name="cnae" class="form-control" />
+                <label>CNAE</label>
+                <input type="text" id="cnae" name="cnae" class="form-control" placeholder="Somente números" maxlength="7" />
               </div>
             </div>
           </section>
 
           <section class="form-section">
-            <h2 class="section-title">Dados do Contato (Sócio/Representante)</h2>
+            <h2 class="section-title">Dados do Contato/Sócio</h2>
             <div class="form-grid">
               <div class="form-group">
-                <label>CPF do Contato <span class="required">*</span></label>
+                <label>CPF do Contato</label>
                 <input type="text" id="cpfContato" name="cpfContato" class="form-control" maxlength="14" />
               </div>
               <div class="form-group form-grid-full">
-                <label>Nome do Contato <span class="required">*</span></label>
+                <label>Nome do Contato</label>
                 <input type="text" id="nomeContato" name="nomeContato" class="form-control" />
               </div>
               <div class="form-group">
-                <label>Cargo <span class="required">*</span></label>
-                <select id="cargoContato" name="cargoContato" class="form-control">
-                  <option value="">Selecione...</option>
-                  <option value="S - Sócio">S - Sócio</option>
-                  <option value="R - Representante">R - Representante</option>
-                </select>
+                <label>Cargo</label>
+                <input type="text" id="cargoContato" name="cargoContato" class="form-control" />
               </div>
               <div class="form-group">
-                <label>Nascimento <span class="required">*</span></label>
+                <label>Nascimento</label>
                 <input type="date" id="nascimentoContato" name="nascimentoContato" class="form-control" />
               </div>
               <div class="form-group">
-                <label>Sexo <span class="required">*</span></label>
+                <label>Sexo</label>
                 <select id="sexoContato" name="sexoContato" class="form-control">
                   <option value="">Selecione...</option>
                   <option value="F">F - Feminino</option>
@@ -263,27 +247,28 @@
           </section>
         </div>
 
-        <!-- ENDEREÇO (COMUM) -->
+        <!-- ENDERECO -->
         <section class="form-section">
           <h2 class="section-title">Endereço</h2>
           <div class="form-grid">
             <div class="form-group">
-              <label>Tipo <span class="required">*</span></label>
-              <select id="tipoLogradouro" name="tipoLogradouro" class="form-control" required>
+              <label>Tipo Logradouro</label>
+              <select id="tipoLogradouro" name="tipoLogradouro" class="form-control">
                 <option value="Rua">Rua</option>
                 <option value="Avenida">Avenida</option>
                 <option value="Travessa">Travessa</option>
                 <option value="Beco">Beco</option>
-                <option value="Praça">Praça</option>
+                <option value="Praca">Praça</option>
+                <option value="Estrada">Estrada</option>
               </select>
             </div>
             <div class="form-group form-grid-full">
               <label>Logradouro <span class="required">*</span></label>
-              <input type="text" id="logradouro" name="logradouro" class="form-control" required />
+              <input type="text" id="logradouro" name="logradouro" class="form-control" />
             </div>
             <div class="form-group">
               <label>Número <span class="required">*</span></label>
-              <input type="text" id="numero" name="numero" class="form-control" required />
+              <input type="text" id="numero" name="numero" class="form-control" />
             </div>
             <div class="form-group">
               <label>Complemento</label>
@@ -291,15 +276,16 @@
             </div>
             <div class="form-group">
               <label>Bairro <span class="required">*</span></label>
-              <select id="bairro" name="bairro" class="form-control" required>
+              <select id="bairro" name="bairro" class="form-control">
+                <option value="">Selecione...</option>
                 <option value="Jacarezinho">Jacarezinho</option>
-                <option value="Maré">Maré</option>
+                <option value="Mare">Maré</option>
                 <option value="Outro">Outro</option>
               </select>
             </div>
             <div class="form-group">
-              <label>CEP <span class="required">*</span></label>
-              <input type="text" id="cep" name="cep" class="form-control" placeholder="00000-000" maxlength="9" required />
+              <label>CEP</label>
+              <input type="text" id="cep" name="cep" class="form-control" maxlength="9" />
             </div>
           </div>
         </section>
@@ -311,13 +297,13 @@
             <div class="form-group">
               <label>Telefone <span class="required">*</span></label>
               <div style="display: flex; gap: 10px;">
-                <input type="text" id="ddd" name="ddd" class="form-control" style="width: 60px;" value="21" maxlength="2" required />
-                <input type="text" id="telefone" name="telefone" class="form-control" placeholder="999999999" maxlength="9" required />
+                <input type="text" id="ddd" name="ddd" class="form-control" style="width: 60px;" value="21" maxlength="2" />
+                <input type="text" id="telefone" name="telefone" class="form-control" placeholder="999999999" maxlength="9" />
               </div>
             </div>
             <div class="form-group">
               <label>E-mail <span class="required">*</span></label>
-              <input type="email" id="email" name="email" class="form-control" required />
+              <input type="email" id="email" name="email" class="form-control" />
             </div>
           </div>
         </section>
@@ -354,7 +340,7 @@
               <option value="Oficina de Shopee e Mercado Livre">Oficina de Shopee e Mercado Livre</option>
               <option value="Oficina de Instagram para Vendas">Oficina de Instagram para Vendas</option>
               <option value="Oficina de TikTok para Negocios">Oficina de TikTok para Negócios</option>
-              <option value="Envio do Certificado - Oficina WhatsApp Business">Envio do Certificado - Oficina WhatsApp Business</option>
+             <option value="Envio do Certificado - Oficina WhatsApp Business">Envio do Certificado - Oficina WhatsApp Business</option>
             </select>
           </div>
         </section>
@@ -375,20 +361,6 @@
   <script>
     const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbwk_UNwCcncFqI6P8TLKO2m68wvujl_DXRnCt4i3n-kdHV_qh7FlOBDQc4mL6qbiYDq/exec';
 
-    // Função para alternar campos obrigatórios
-    function alternarRequired(tipo) {
-      const camposPF = ['cpf', 'nomePF', 'sexo', 'nascimentoPF', 'ocupacao'];
-      const camposPJ = ['cnpj', 'razaoSocial', 'dataFundacao', 'classificacao', 'cnae', 'cpfContato', 'nomeContato', 'cargoContato', 'nascimentoContato', 'sexoContato'];
-      
-      if (tipo === 'pf') {
-        camposPF.forEach(id => document.getElementById(id).required = true);
-        camposPJ.forEach(id => document.getElementById(id).required = false);
-      } else {
-        camposPF.forEach(id => document.getElementById(id).required = false);
-        camposPJ.forEach(id => document.getElementById(id).required = true);
-      }
-    }
-
     // Alternar PF/PJ
     document.getElementById('btnPF').onclick = () => {
       document.getElementById('btnPF').classList.add('active');
@@ -396,7 +368,6 @@
       document.getElementById('camposPF').classList.add('active');
       document.getElementById('camposPJ').classList.remove('active');
       document.getElementById('tipoPessoa').value = 'pf';
-      alternarRequired('pf');
     };
     document.getElementById('btnPJ').onclick = () => {
       document.getElementById('btnPJ').classList.add('active');
@@ -404,11 +375,7 @@
       document.getElementById('camposPJ').classList.add('active');
       document.getElementById('camposPF').classList.remove('active');
       document.getElementById('tipoPessoa').value = 'pj';
-      alternarRequired('pj');
     };
-
-    // Inicializa validação
-    alternarRequired('pf');
 
     // Busca Automática (JSONP)
     async function realizarBusca(doc, tipo) {
